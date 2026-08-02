@@ -62,19 +62,21 @@ const Projects = ({ darkMode }) => {
   return (
     <section
       id="projects"
-      className={`relative py-20 sm:py-24 transition-colors duration-300 ${
+      className={`relative py-20 sm:py-28 transition-colors duration-300 ${
         darkMode
           ? "bg-black"
           : "bg-gradient-to-b from-white via-emerald-50/20 to-white"
       }`}
     >
+    
       <div
-        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none opacity-25 ${
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] rounded-full blur-3xl pointer-events-none opacity-25 ${
           darkMode ? "bg-teal-500/20" : "bg-emerald-300/30"
         }`}
       />
 
-      <div className="container mx-auto px-4 relative z-10">
+   
+      <div className="container max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
         {/* Section Heading */}
         <div className="text-center mb-16" data-aos="fade-up">
           <h2
@@ -97,7 +99,7 @@ const Projects = ({ darkMode }) => {
         </div>
 
         {/* Projects Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-14">
           {projects.map((project, index) => (
             <div
               key={project.id}

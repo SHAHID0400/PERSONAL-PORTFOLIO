@@ -71,18 +71,19 @@ const Skills = ({ darkMode }) => {
   return (
     <section
       id="skills"
-      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 ${
+      className={`py-20 sm:py-28 relative overflow-hidden transition-colors duration-300 ${
         darkMode ? "bg-black" : "bg-gradient-to-b from-white via-emerald-50/20 to-white"
       }`}
     >
-      {/* Background Glow */}
+    
       <div
-        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none opacity-25 ${
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] rounded-full blur-3xl pointer-events-none opacity-25 ${
           darkMode ? "bg-teal-500/20" : "bg-emerald-300/30"
         }`}
       />
 
-      <div className="container px-5 py-10 mx-auto relative z-10">
+     
+      <div className="container max-w-7xl px-6 sm:px-10 lg:px-12 py-10 mx-auto relative z-10">
         
         {/* Title */}
         <div className="text-center mb-16" data-aos="fade-up">

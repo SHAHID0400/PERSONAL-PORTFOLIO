@@ -50,8 +50,10 @@ const Hero = ({ darkMode }) => {
           : "bg-gradient-to-b from-emerald-50/30 via-white to-gray-50"
       }`}
     >
-      <section id="home" data-aos-delay="250" className="body-font z-10">
-        <div className="container mx-auto flex px-4 sm:px-8 lg:px-4 py-12 lg:py-24 flex-col lg:flex-row items-center justify-between lg:mt-0 mt-14">
+      <section id="home" data-aos-delay="250" className="body-font z-10 pt-10 sm:pt-16 lg:pt-20">
+        
+      
+        <div className="container mx-auto max-w-7xl flex px-6 sm:px-10 lg:px-12 py-12 lg:py-24 flex-col lg:flex-row items-center justify-between">
           
           {/* LEFT SECTION */}
           <div className="lg:w-1/2 w-full flex flex-col items-center lg:items-start text-center lg:text-left mb-12 lg:mb-0">
@@ -64,7 +66,7 @@ const Hero = ({ darkMode }) => {
                   href="#"
                   target="_blank"
                   data-aos-delay={`${400 + index * 100}`}
-                  className=" transform hover:scale-110 transition-transform duration-300 mt-8"
+                  className=" transform hover:scale-110 transition-transform duration-300 mt-4 sm:mt-6"
                 >
                   <img
                     src={social.icon}
@@ -143,7 +145,7 @@ const Hero = ({ darkMode }) => {
               performance, usability, and continuous innovation.
             </p>
 
-            {/* Buttons (Matching "Hire Me" Button Palette) */}
+            {/* Buttons */}
             <div className="w-full pt-2 sm:pt-4">
               <div
                 className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4"

@@ -75,7 +75,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`flex items-center justify-center ${colors.navBg} backdrop-blur-lg rounded-2xl px-6 lg:px-10 py-3.5 w-[92%] max-w-7xl shadow-[0_10px_40px_rgba(0,0,0,.2)]`}
+        className={`flex items-center justify-center ${colors.navBg} backdrop-blur-lg rounded-2xl px-3 lg:px-10 py-3.5 w-[92%] max-w-7xl shadow-[0_10px_40px_rgba(0,0,0,.2)]`}
       >
         <div className="flex items-center justify-between w-full space-x-6 lg:space-x-8">
           

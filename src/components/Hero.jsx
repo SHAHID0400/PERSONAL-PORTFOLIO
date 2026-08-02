@@ -50,28 +50,27 @@ const Hero = ({ darkMode }) => {
           : "bg-gradient-to-b from-emerald-50/30 via-white to-gray-50"
       }`}
     >
-      <section id="home" data-aos-delay="250" className="body-font z-10 pt-10 sm:pt-16 lg:pt-20">
+      <section id="home" data-aos-delay="250" className="body-font z-10 pt-16 sm:pt-20 lg:pt-24">
         
-      
-        <div className="container mx-auto max-w-7xl flex px-6 sm:px-10 lg:px-12 py-12 lg:py-24 flex-col lg:flex-row items-center justify-between">
+        <div className="container mx-auto max-w-7xl flex px-6 sm:px-10 lg:px-12 py-6 sm:py-8 lg:py-12 flex-col lg:flex-row items-center justify-between">
           
           {/* LEFT SECTION */}
-          <div className="lg:w-1/2 w-full flex flex-col items-center lg:items-start text-center lg:text-left mb-12 lg:mb-0">
+          <div className="lg:w-1/2 w-full flex flex-col items-center lg:items-start text-center lg:text-left mb-8 lg:mb-0">
 
             {/* Social Icons */}
-            <div className="flex justify-center lg:justify-start gap-4 sm:gap-6 mb-6 sm:mb-7 w-full">
+            <div className="flex justify-center lg:justify-start gap-4 mb-3 w-full">
               {socialIcons.map((social, index) => (
                 <a
                   key={index}
                   href="#"
                   target="_blank"
                   data-aos-delay={`${400 + index * 100}`}
-                  className=" transform hover:scale-110 transition-transform duration-300 mt-4 sm:mt-6"
+                  className="transform hover:scale-110 transition-transform duration-300 mt-1"
                 >
                   <img
                     src={social.icon}
                     alt={social.alt}
-                    className={`w-8 h-8 rounded-2xl sm:w-10 sm:h-10 object-contain ${
+                    className={`w-8 h-8 rounded-2xl sm:w-9 sm:h-9 object-contain ${
                       darkMode ? "" : "filter brightness-95 contrast-110"
                     }`}
                   />
@@ -79,9 +78,9 @@ const Hero = ({ darkMode }) => {
               ))}
             </div>
 
-            {/* Main Title with Logo Color Gradient */}
+            {/* Main Title */}
             <h1
-              className={`title-font text-3xl sm:text-4xl lg:text-5xl mb-4 font-bold ${theme.textPrimary}`}
+              className={`title-font text-3xl sm:text-4xl lg:text-5xl mb-3 font-bold ${theme.textPrimary}`}
               data-aos="fade-up"
               data-aos-delay="500"
             >
@@ -93,21 +92,20 @@ const Hero = ({ darkMode }) => {
 
             {/* DYNAMIC THEMED TYPEWRITER BOX */}
             <div
-              className="w-full max-w-xs sm:max-w-md my-2 flex justify-center lg:justify-start"
+              className="w-full max-w-xs sm:max-w-md mb-2 flex justify-center lg:justify-start"
               data-aos="fade-up"
               data-aos-delay="550"
             >
               <div
-                className={`relative inline-flex items-center px-4 py-2.5 rounded-xl border overflow-hidden w-full sm:w-auto ${theme.typewriterBox}`}
+                className={`relative inline-flex items-center px-4 py-2 rounded-xl border overflow-hidden w-full sm:w-auto ${theme.typewriterBox}`}
               >
-                {/* Left Teal-to-Gold Accent Strip */}
                 <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 to-amber-400 rounded-l-xl" />
 
-                <span className="text-emerald-500 font-bold text-xl sm:text-2xl mr-2 pl-2">
+                <span className="text-emerald-500 font-bold text-lg sm:text-xl mr-2 pl-2">
                   &gt;
                 </span>
 
-                <div className="text-lg sm:text-xl font-bold">
+                <div className="text-base sm:text-lg font-bold">
                   <Typewriter
                     options={{
                       strings: [
@@ -127,14 +125,13 @@ const Hero = ({ darkMode }) => {
               </div>
             </div>
 
-            {/* 3D Cube Section */}
-            <div className="w-full" data-aos="zoom-in" data-aos-delay="580">
+            <div className="w-full my-2 flex justify-center lg:justify-start lg:pl-20" data-aos="zoom-in" data-aos-delay="580">
               <SplineCube darkMode={darkMode} />
             </div>
 
             {/* Description */}
             <p
-              className={`mb-6 sm:mb-8 leading-relaxed max-w-md sm:max-w-lg mt-2 ${theme.textSecondary}`}
+              className={`mb-5 sm:mb-6 leading-relaxed max-w-md sm:max-w-lg mt-2 text-sm sm:text-base ${theme.textSecondary}`}
               data-aos="fade-up"
               data-aos-delay="600"
             >
@@ -146,7 +143,7 @@ const Hero = ({ darkMode }) => {
             </p>
 
             {/* Buttons */}
-            <div className="w-full pt-2 sm:pt-4">
+            <div className="w-full">
               <div
                 className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4"
                 data-aos="fade-up"
@@ -155,20 +152,20 @@ const Hero = ({ darkMode }) => {
                 <a href={CV} download className="w-full sm:w-auto">
                   <button
                     className="w-full sm:w-auto inline-flex items-center justify-center text-white bg-gradient-to-r
-                    from-amber-400 via-amber-500 to-amber-600 border-0 py-3 px-6 sm:px-8 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)]
-                    rounded-full text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                    from-amber-400 via-amber-500 to-amber-600 border-0 py-2.5 px-6 sm:px-7 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)]
+                    rounded-full text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer"
                   >
-                    <DownloadIcon className="w-4 h-4 sm:h-5 sm:w-5 mr-2" />
+                    <DownloadIcon className="w-4 h-4 mr-2" />
                     Download CV
                   </button>
                 </a>
                 <a href="#contact" className="w-full sm:w-auto">
                   <button
                     className={`w-full sm:w-auto inline-flex items-center ${theme.buttonSecondary} justify-center
-                    py-3 px-6 sm:px-8 hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]
-                    rounded-full text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer`}
+                    py-2.5 px-6 sm:px-7 hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]
+                    rounded-full text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer`}
                   >
-                    <Mail className="w-4 h-4 sm:h-5 sm:w-5 mr-2" />
+                    <Mail className="w-4 h-4 mr-2" />
                     Contact Me
                   </button>
                 </a>
@@ -178,11 +175,11 @@ const Hero = ({ darkMode }) => {
 
           {/* RIGHT SECTION / HERO IMAGE */}
           <div
-            className="lg:w-1/2 w-full max-w-md lg:max-w-lg mt-8 lg:mt-0 flex justify-center"
+            className="lg:w-1/2 w-full max-w-md lg:max-w-lg mt-4 lg:mt-0 flex justify-center"
             data-aos="fade-left"
             data-aos-delay="400"
           >
-            <div className="relative w-4/5 sm:w-3/4 lg:w-full mt-5">
+            <div className="relative w-4/5 sm:w-3/4 lg:w-full">
               <div className="relative overflow-hidden">
                 <img
                   src={hero}
@@ -193,7 +190,7 @@ const Hero = ({ darkMode }) => {
               <img
                 src={hi}
                 alt="hi image"
-                className="absolute -top-4 rounded-full sm:top-4 left-12 sm:left-20 w-14 h-14 sm:w-20 sm:h-20 object-contain animate-bounce opacity-90 z-10"
+                className="absolute -top-4 rounded-full sm:top-2 left-12 sm:left-20 w-12 h-12 sm:w-16 sm:h-16 object-contain animate-bounce opacity-90 z-10"
               />
             </div>
           </div>

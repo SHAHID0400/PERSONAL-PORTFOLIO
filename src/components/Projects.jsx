@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import project1 from "../assets/project1.png";
 import project2 from "../assets/project2.webp";
 import project3 from "../assets/project3.png";
 import project4 from "../assets/project4.png";
 import project5 from "../assets/project5.png";
 import project6 from "../assets/project6.png";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { FaExternalLinkAlt, FaGithub, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Projects = ({ darkMode }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsPerPage, setCardsPerPage] = useState(3);
+
   const projects = [
     {
       id: 1,
@@ -59,6 +62,40 @@ const Projects = ({ darkMode }) => {
     },
   ];
 
+  // Screen size check karke active cards set karega
+  useEffect(() => {
+    const updateCardsPerPage = () => {
+      if (window.innerWidth < 768) {
+        setCardsPerPage(1); // Mobile: 1 card
+      } else if (window.innerWidth < 1024) {
+        setCardsPerPage(2); // Tablet: 2 cards
+      } else {
+        setCardsPerPage(3); // Desktop: 3 cards
+      }
+    };
+
+    updateCardsPerPage();
+    window.addEventListener("resize", updateCardsPerPage);
+    return () => window.removeEventListener("resize", updateCardsPerPage);
+  }, []);
+
+  const maxIndex = Math.max(0, projects.length - cardsPerPage);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
+    }, 1500);
+    return () => clearInterval(timer);
+  }, [maxIndex, currentIndex]);
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? maxIndex : prevIndex - 1));
+  };
+
   return (
     <section
       id="projects"
@@ -68,120 +105,168 @@ const Projects = ({ darkMode }) => {
           : "bg-gradient-to-b from-white via-emerald-50/20 to-white"
       }`}
     >
-    
+      {/* Background Glow */}
       <div
         className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] rounded-full blur-3xl pointer-events-none opacity-25 ${
           darkMode ? "bg-teal-500/20" : "bg-emerald-300/30"
         }`}
       />
 
-   
       <div className="container max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
-        {/* Section Heading */}
-        <div className="text-center mb-16" data-aos="fade-up">
-          <h2
-            className={`text-3xl sm:text-4xl font-bold mb-3 tracking-tight ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            My{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500">
-              Projects
-            </span>
-          </h2>
-          <p
-            className={`max-w-xl mx-auto text-sm sm:text-base ${
-              darkMode ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
-            A showcase of my recent work and digital products
-          </p>
+        
+        {/* Section Heading & Arrows */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16" data-aos="fade-up">
+          <div className="text-center md:text-left">
+            <h2
+              className={`text-3xl sm:text-4xl font-bold mb-3 tracking-tight ${
+                darkMode ? "text-white" : "text-gray-900"
+              }`}
+            >
+              My{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500">
+                Projects
+              </span>
+            </h2>
+            <p
+              className={`max-w-xl text-sm sm:text-base ${
+                darkMode ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              A showcase of my recent work and digital products
+            </p>
+          </div>
+
+          {/* Navigation Controls */}
+          <div className="flex justify-center gap-3 mt-6 md:mt-0">
+            <button
+              onClick={handlePrev}
+              className={`w-11 h-11 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer ${
+                darkMode
+                  ? "bg-gray-900 border-gray-800 text-white hover:border-teal-400 hover:text-teal-400"
+                  : "bg-white border-gray-200 text-gray-800 hover:border-emerald-500 hover:text-emerald-500 shadow-sm"
+              }`}
+            >
+              <FaChevronLeft className="text-sm" />
+            </button>
+            <button
+              onClick={handleNext}
+              className={`w-11 h-11 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer ${
+                darkMode
+                  ? "bg-gray-900 border-gray-800 text-white hover:border-teal-400 hover:text-teal-400"
+                  : "bg-white border-gray-200 text-gray-800 hover:border-emerald-500 hover:text-emerald-500 shadow-sm"
+              }`}
+            >
+              <FaChevronRight className="text-sm" />
+            </button>
+          </div>
         </div>
 
-        {/* Projects Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-14">
-          {projects.map((project, index) => (
-            <div
-              key={project.id}
-              className={`group rounded-2xl border transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col overflow-hidden ${
-                darkMode
-                  ? "bg-gray-900/70 border-gray-800 hover:border-teal-500/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.15)] backdrop-blur-md"
-                  : "bg-white/90 border-gray-100 hover:border-emerald-500/40 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] backdrop-blur-md"
-              }`}
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
-            >
-              {/* Project Image */}
-              <div className="h-44 sm:h-48 overflow-hidden relative">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
+        {/* 🟢 SLIDER WRAPPER */}
+        <div className="overflow-hidden relative rounded-2xl mb-12">
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{
+              transform: `translateX(-${currentIndex * (100 / cardsPerPage)}%)`,
+            }}
+          >
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                className="flex-shrink-0 px-3 w-full md:w-1/2 lg:w-1/3"
+              >
+                <div
+                  className={`group rounded-2xl border transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col overflow-hidden h-full ${
+                    darkMode
+                      ? "bg-gray-900/70 border-gray-800 hover:border-teal-500/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.15)] backdrop-blur-md"
+                      : "bg-white/90 border-gray-100 hover:border-emerald-500/40 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] backdrop-blur-md"
+                  }`}
+                >
+                  {/* Project Image */}
+                  <div className="h-48 sm:h-52 overflow-hidden relative">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
 
-              {/* Card Body */}
-              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3
-                    className={`text-xl font-bold mb-2 ${
-                      darkMode ? "text-white" : "text-gray-800"
-                    }`}
-                  >
-                    {project.title}
-                  </h3>
-                  <p
-                    className={`text-xs sm:text-sm mb-4 leading-relaxed line-clamp-3 ${
-                      darkMode ? "text-gray-400" : "text-gray-600"
-                    }`}
-                  >
-                    {project.description}
-                  </p>
-                </div>
-
-                <div>
-                  {/* Tech Tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {project.tags.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className={`px-2.5 py-1 text-xs rounded-full font-medium border ${
-                          darkMode
-                            ? "bg-teal-500/10 border-teal-500/20 text-teal-300"
-                            : "bg-emerald-50 border-emerald-100 text-emerald-700"
+                  {/* Card Body */}
+                  <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3
+                        className={`text-xl font-bold mb-2 ${
+                          darkMode ? "text-white" : "text-gray-800"
                         }`}
                       >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                        {project.title}
+                      </h3>
+                      <p
+                        className={`text-xs sm:text-sm mb-4 leading-relaxed line-clamp-3 ${
+                          darkMode ? "text-gray-400" : "text-gray-600"
+                        }`}
+                      >
+                        {project.description}
+                      </p>
+                    </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex gap-3">
-                    {/* Code Link */}
-                    <a
-                      href="#"
-                      className={`flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border transition-all duration-300 ${
-                        darkMode
-                          ? "bg-gray-800/80 border-gray-700 text-gray-200 hover:bg-gray-700 hover:text-white"
-                          : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
-                      }`}
-                    >
-                      <FaGithub className="text-sm" />
-                      <span>Code</span>
-                    </a>
-                    <a
-                      href="#"
-                      className="flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:scale-[1.02] transition-all duration-300"
-                    >
-                      <FaExternalLinkAlt className="text-xs" />
-                      <span>Demo</span>
-                    </a>
+                    <div>
+                      {/* Tech Tags */}
+                      <div className="flex flex-wrap gap-1.5 mb-5">
+                        {project.tags.map((tag, idx) => (
+                          <span
+                            key={idx}
+                            className={`px-2.5 py-1 text-xs rounded-full font-medium border ${
+                              darkMode
+                                ? "bg-teal-500/10 border-teal-500/20 text-teal-300"
+                                : "bg-emerald-50 border-emerald-100 text-emerald-700"
+                            }`}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex gap-3">
+                        <a
+                          href="#"
+                          className={`flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border transition-all duration-300 ${
+                            darkMode
+                              ? "bg-gray-800/80 border-gray-700 text-gray-200 hover:bg-gray-700 hover:text-white"
+                              : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
+                          }`}
+                        >
+                          <FaGithub className="text-sm" />
+                          <span>Code</span>
+                        </a>
+                        <a
+                          href="#"
+                          className="flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:scale-[1.02] transition-all duration-300"
+                        >
+                          <FaExternalLinkAlt className="text-xs" />
+                          <span>Demo</span>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center gap-2 mb-10">
+          {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                currentIndex === idx
+                  ? "w-8 bg-gradient-to-r from-emerald-400 to-amber-500"
+                  : "w-2.5 bg-gray-600/40"
+              }`}
+            />
           ))}
         </div>
 

@@ -47,9 +47,9 @@ const Hero = ({ darkMode }) => {
           : "bg-gradient-to-b from-emerald-50/30 via-white to-gray-50"
       }`}
     >
-      <section id="home" data-aos-delay="250" className="body-font z-10 pt-16 sm:pt-20 lg:pt-24">
+      <section id="home" data-aos-delay="250" className="body-font z-10 pt-28 sm:pt-24 lg:pt-28">
         
-        <div className="container mx-auto max-w-7xl flex px-6 sm:px-10 lg:px-12 py-6 sm:py-8 lg:py-12 flex-col lg:flex-row items-center justify-between">
+        <div className="container mx-auto max-w-7xl flex px-6 sm:px-10 lg:px-12 py-4 sm:py-8 lg:py-12 flex-col lg:flex-row items-center justify-between">
           
           {/* LEFT SECTION */}
           <div className="lg:w-1/2 w-full flex flex-col items-center lg:items-start text-center lg:text-left mb-8 lg:mb-0">
@@ -171,7 +171,7 @@ const Hero = ({ darkMode }) => {
             </div>
           </div>
 
-          {/* 🟢 RIGHT SECTION / HERO IMAGE (FIXED LIGHT THEME BLENDING) */}
+          {/* RIGHT SECTION / HERO IMAGE */}
           <div
             className="lg:w-1/2 w-full max-w-md lg:max-w-lg mt-6 lg:mt-0 flex justify-center"
             data-aos="fade-left"

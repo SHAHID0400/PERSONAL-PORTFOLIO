@@ -20,7 +20,7 @@ const Footer = ({ darkMode }) => {
           {/* Left Side: Logo & Tagline */}
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-bold tracking-tight mb-1 text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500">
-              MD SHAHID.in
+              MD SHAHID
             </h3>
             <p
               className={`text-xs sm:text-sm font-medium ${

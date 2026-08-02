@@ -3,7 +3,7 @@ import Typewriter from "typewriter-effect";
 import instagram from "../assets/insta.jpg";
 import linkden from "../assets/linkden.png";
 import facebook from "../assets/facebook.jpg";
-import GitHub from "../assets/github.png";
+import github from "../assets/github.png";
 import CV from "../assets/CV.pdf";
 import hero from "../assets/hero.png";
 import { DownloadIcon, Mail } from "lucide-react";
@@ -15,7 +15,7 @@ const Hero = ({ darkMode }) => {
     { icon: instagram, alt: "Instagram" },
     { icon: linkden, alt: "Linkden" },
     { icon: facebook, alt: "Facebook" },
-    { icon: GitHub, alt: "GitHub" },
+    { icon: github, alt: "GitHub" },
   ];
 
   const darkTheme = {

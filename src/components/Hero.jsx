@@ -7,7 +7,6 @@ import github from "../assets/github.png";
 import CV from "../assets/CV.pdf";
 import hero from "../assets/hero.png";
 import { DownloadIcon, Mail } from "lucide-react";
-import hi from "../assets/hi.png";
 import SplineCube from "./SplineCube";
 
 const Hero = ({ darkMode }) => {
@@ -26,7 +25,6 @@ const Hero = ({ darkMode }) => {
     decorativeCircle: "bg-teal-500 opacity-10",
     typewriterBox:
       "bg-gray-900/70 border-emerald-500/30 text-teal-300 shadow-[0_0_20px_rgba(20,184,166,0.15)] backdrop-blur-md",
-    badgeBox: "border-teal-500/30 bg-teal-500/10 text-teal-300",
   };
 
   const lightTheme = {
@@ -37,7 +35,6 @@ const Hero = ({ darkMode }) => {
     decorativeCircle: "bg-teal-400 opacity-15",
     typewriterBox:
       "bg-white/90 border-emerald-500/30 text-emerald-700 shadow-[0_10px_25px_rgba(0,0,0,0.05)] backdrop-blur-md",
-    badgeBox: "border-emerald-500/30 bg-emerald-50 text-emerald-700 shadow-2xs",
   };
 
   const theme = darkMode ? darkTheme : lightTheme;
@@ -125,6 +122,7 @@ const Hero = ({ darkMode }) => {
               </div>
             </div>
 
+            {/* 3D Cube Section */}
             <div className="w-full my-2 flex justify-center lg:justify-start lg:pl-20" data-aos="zoom-in" data-aos-delay="580">
               <SplineCube darkMode={darkMode} />
             </div>
@@ -173,25 +171,29 @@ const Hero = ({ darkMode }) => {
             </div>
           </div>
 
-          {/* RIGHT SECTION / HERO IMAGE */}
+          {/* 🟢 RIGHT SECTION / HERO IMAGE (FIXED LIGHT THEME BLENDING) */}
           <div
-            className="lg:w-1/2 w-full max-w-md lg:max-w-lg mt-4 lg:mt-0 flex justify-center"
+            className="lg:w-1/2 w-full max-w-md lg:max-w-lg mt-6 lg:mt-0 flex justify-center"
             data-aos="fade-left"
             data-aos-delay="400"
           >
-            <div className="relative w-4/5 sm:w-3/4 lg:w-full">
-              <div className="relative overflow-hidden">
+            <div className="relative w-full">
+              
+              {/* Glassmorphic Container Card Frame */}
+              <div
+                className={`relative overflow-hidden rounded-3xl p-2 sm:p-3 transition-all duration-300 border ${
+                  darkMode
+                    ? "bg-gray-950/80 border-emerald-500/30 shadow-[0_0_35px_rgba(16,185,129,0.15)]"
+                    : "bg-slate-900/95 border-emerald-500/40 shadow-[0_20px_40px_rgba(0,0,0,0.15)] ring-4 ring-emerald-500/10"
+                }`}
+              >
                 <img
                   src={hero}
-                  alt="hero image"
-                  className="w-full h-auto object-cover rounded-2xl transform hover:scale-105 transition-transform duration-500"
+                  alt="MD SHAHID"
+                  className="w-full h-auto object-cover rounded-2xl transform hover:scale-[1.02] transition-transform duration-500"
                 />
               </div>
-              <img
-                src={hi}
-                alt="hi image"
-                className="absolute -top-4 rounded-full sm:top-2 left-12 sm:left-20 w-12 h-12 sm:w-16 sm:h-16 object-contain animate-bounce opacity-90 z-10"
-              />
+
             </div>
           </div>
 

@@ -3,7 +3,6 @@ import React from "react";
 const SplineCube = ({ darkMode }) => {
   return (
     <div className="w-full h-[120px] sm:h-[150px] flex items-center justify-center relative my-0">
-
       <div
         className={`absolute w-36 h-36 rounded-full blur-3xl pointer-events-none transition-colors duration-300 ${
           darkMode ? "bg-teal-500/20" : "bg-emerald-400/25"
@@ -12,7 +11,6 @@ const SplineCube = ({ darkMode }) => {
 
       {/* CSS 3D Cube Container */}
       <div className="relative w-24 h-24 sm:w-28 sm:h-28 [transform-style:preserve-3d] animate-[spin3d_12s_infinite_linear]">
-        
         {/* Front Face: Next.js */}
         <div
           className={`absolute inset-0 border-2 border-emerald-500/80 rounded-xl flex items-center justify-center font-bold text-xs sm:text-sm shadow-lg backdrop-blur-md [transform:translateZ(48px)] sm:[transform:translateZ(56px)] transition-all ${

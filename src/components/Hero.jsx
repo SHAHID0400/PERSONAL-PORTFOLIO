@@ -47,13 +47,14 @@ const Hero = ({ darkMode }) => {
           : "bg-gradient-to-b from-emerald-50/30 via-white to-gray-50"
       }`}
     >
-      <section id="home" data-aos-delay="250" className="body-font z-10 pt-28 sm:pt-24 lg:pt-28">
-        
+      <section
+        id="home"
+        data-aos-delay="250"
+        className="body-font z-10 pt-28 sm:pt-24 lg:pt-28"
+      >
         <div className="container mx-auto max-w-7xl flex px-6 sm:px-10 lg:px-12 py-4 sm:py-8 lg:py-12 flex-col lg:flex-row items-center justify-between">
-          
           {/* LEFT SECTION */}
           <div className="lg:w-1/2 w-full flex flex-col items-center lg:items-start text-center lg:text-left mb-8 lg:mb-0">
-
             {/* Social Icons */}
             <div className="flex justify-center lg:justify-start gap-4 mb-3 w-full">
               {socialIcons.map((social, index) => (
@@ -123,7 +124,11 @@ const Hero = ({ darkMode }) => {
             </div>
 
             {/* 3D Cube Section */}
-            <div className="w-full my-2 flex justify-center lg:justify-start lg:pl-20" data-aos="zoom-in" data-aos-delay="580">
+            <div
+              className="w-full my-2 flex justify-center lg:justify-start lg:pl-20"
+              data-aos="zoom-in"
+              data-aos-delay="580"
+            >
               <SplineCube darkMode={darkMode} />
             </div>
 
@@ -178,7 +183,6 @@ const Hero = ({ darkMode }) => {
             data-aos-delay="400"
           >
             <div className="relative w-full">
-              
               {/* Glassmorphic Container Card Frame */}
               <div
                 className={`relative overflow-hidden rounded-3xl p-2 sm:p-3 transition-all duration-300 border ${
@@ -193,7 +197,6 @@ const Hero = ({ darkMode }) => {
                   className="w-full h-auto object-cover rounded-2xl transform hover:scale-[1.02] transition-transform duration-500"
                 />
               </div>
-
             </div>
           </div>
 

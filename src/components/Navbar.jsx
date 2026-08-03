@@ -13,11 +13,11 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     { name: "Projects", link: "#projects" },
     { name: "Contact", link: "#contact" },
   ];
-  
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = navitems.map((item) =>
-        document.querySelector(item.link)
+        document.querySelector(item.link),
       );
 
       const scrollPosition = window.scrollY + 200; // Offset for navbar
@@ -78,7 +78,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         className={`flex items-center justify-center ${colors.navBg} backdrop-blur-lg rounded-2xl px-3 lg:px-10 py-3.5 w-[92%] max-w-7xl shadow-[0_10px_40px_rgba(0,0,0,.2)]`}
       >
         <div className="flex items-center justify-between w-full space-x-6 lg:space-x-8">
-          
           {/* Logo */}
           <motion.a
             href="/"
@@ -124,7 +123,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
           {/* Controls Right Section */}
           <div className="flex items-center space-x-3">
-            
             {/* Dark Mode Toggle */}
             <motion.button
               whileHover={{ scale: 1.08, rotate: 15 }}
@@ -168,9 +166,13 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 }`}
               >
                 {isMenuOpen ? (
-                  <X className={`w-6 h-6 ${darkMode ? "text-white" : "text-gray-900"}`} />
+                  <X
+                    className={`w-6 h-6 ${darkMode ? "text-white" : "text-gray-900"}`}
+                  />
                 ) : (
-                  <Menu className={`w-6 h-6 ${darkMode ? "text-white" : "text-gray-900"}`} />
+                  <Menu
+                    className={`w-6 h-6 ${darkMode ? "text-white" : "text-gray-900"}`}
+                  />
                 )}
               </motion.button>
             </div>
@@ -185,7 +187,9 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             className={`absolute top-full left-0 right-0 mt-3 lg:hidden ${
-              darkMode ? "bg-gray-900/95 border-gray-700" : "bg-white/95 border-gray-200"
+              darkMode
+                ? "bg-gray-900/95 border-gray-700"
+                : "bg-white/95 border-gray-200"
             } backdrop-blur-xl rounded-2xl shadow-xl border overflow-hidden`}
           >
             <div className="px-4 py-3 space-y-2">

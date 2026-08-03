@@ -41,11 +41,7 @@ const Hero = ({ darkMode }) => {
 
   return (
     <div
-      className={`relative overflow-hidden min-h-screen flex flex-col transition-colors duration-300 ${
-        darkMode
-          ? "bg-black"
-          : "bg-gradient-to-b from-emerald-50/30 via-white to-gray-50"
-      }`}
+      className={`relative overflow-hidden min-h-screen flex flex-col transition-colors duration-300 bg-transparent`}
     >
       <section
         id="home"

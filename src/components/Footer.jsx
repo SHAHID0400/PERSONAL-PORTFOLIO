@@ -5,16 +5,10 @@ const Footer = ({ darkMode }) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className={`relative transition-colors duration-300 ${
-        darkMode
-          ? "bg-gradient-to-b from-black to-gray-950"
-          : "bg-gradient-to-b from-white to-emerald-50/30"
-      }`}
-    >
+    <footer className="relative transition-colors duration-300 bg-transparent">
       <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent dark:via-teal-400/60" />
 
-      <div className="container mx-auto px-4 sm:px-6 py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-8 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           
           {/* Left Side: Logo & Tagline */}

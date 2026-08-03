@@ -71,18 +71,14 @@ const Skills = ({ darkMode }) => {
   return (
     <section
       id="skills"
-      className={`py-20 sm:py-28 relative overflow-hidden transition-colors duration-300 ${
-        darkMode ? "bg-black" : "bg-gradient-to-b from-white via-emerald-50/20 to-white"
-      }`}
+      className={`py-20 sm:py-28 relative overflow-hidden transition-colors duration-300 bg-transparent`}
     >
-    
       <div
         className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] rounded-full blur-3xl pointer-events-none opacity-25 ${
           darkMode ? "bg-teal-500/20" : "bg-emerald-300/30"
         }`}
       />
 
-     
       <div className="container max-w-7xl px-6 sm:px-10 lg:px-12 py-10 mx-auto relative z-10">
         
         {/* Title */}
@@ -118,8 +114,8 @@ const Skills = ({ darkMode }) => {
               <div
                 className={`h-full p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-2 group cursor-pointer ${
                   darkMode
-                    ? "bg-gray-900/70 border-gray-800 hover:border-teal-500/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.15)] backdrop-blur-md"
-                    : "bg-white/90 border-gray-100 hover:border-emerald-500/40 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] backdrop-blur-md"
+                    ? "bg-gray-900/60 border-gray-800 hover:border-teal-500/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.15)] backdrop-blur-md"
+                    : "bg-white/80 border-gray-100 hover:border-emerald-500/40 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] backdrop-blur-md"
                 }`}
               >
                 {/* Header Icon + Title */}

@@ -67,15 +67,14 @@ const Projects = ({ darkMode }) => {
     },
   ];
 
-  // Screen size check karke active cards set karega
   useEffect(() => {
     const updateCardsPerPage = () => {
       if (window.innerWidth < 768) {
-        setCardsPerPage(1); // Mobile: 1 card
+        setCardsPerPage(1);
       } else if (window.innerWidth < 1024) {
-        setCardsPerPage(2); // Tablet: 2 cards
+        setCardsPerPage(2);
       } else {
-        setCardsPerPage(3); // Desktop: 3 cards
+        setCardsPerPage(3);
       }
     };
 
@@ -108,11 +107,7 @@ const Projects = ({ darkMode }) => {
   return (
     <section
       id="projects"
-      className={`relative py-20 sm:py-28 transition-colors duration-300 ${
-        darkMode
-          ? "bg-black"
-          : "bg-gradient-to-b from-white via-emerald-50/20 to-white"
-      }`}
+      className={`relative py-20 sm:py-28 transition-colors duration-300 bg-transparent`}
     >
       {/* Background Glow */}
       <div
@@ -143,7 +138,7 @@ const Projects = ({ darkMode }) => {
           </p>
         </div>
 
-        {/* 🟢 SLIDER MAIN WRAPPER WITH ABSOLUTE SIDE BUTTONS */}
+        {/* SLIDER MAIN WRAPPER */}
         <div className="relative group px-2 sm:px-4 mb-12">
           {/* Left Arrow Button */}
           <button
@@ -185,8 +180,8 @@ const Projects = ({ darkMode }) => {
                   <div
                     className={`group rounded-2xl border transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col overflow-hidden h-full ${
                       darkMode
-                        ? "bg-gray-900/70 border-gray-800 hover:border-teal-500/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.15)] backdrop-blur-md"
-                        : "bg-white/90 border-gray-100 hover:border-emerald-500/40 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] backdrop-blur-md"
+                        ? "bg-gray-900/60 border-gray-800 hover:border-teal-500/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.15)] backdrop-blur-md"
+                        : "bg-white/80 border-gray-100 hover:border-emerald-500/40 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] backdrop-blur-md"
                     }`}
                   >
                     {/* Project Image */}

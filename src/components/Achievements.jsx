@@ -46,10 +46,8 @@ const Achievements = ({ darkMode }) => {
   return (
     <section
       id="achievements"
-      className={`relative py-20 sm:py-28 transition-colors duration-300 ${
-        darkMode
-          ? "bg-black text-white"
-          : "bg-gradient-to-b from-gray-50 via-emerald-50/20 to-white text-gray-900"
+      className={`relative py-20 sm:py-28 transition-colors duration-300 bg-transparent ${
+        darkMode ? "text-white" : "text-gray-900"
       }`}
     >
       {/* Background Glow Effect */}
@@ -87,7 +85,7 @@ const Achievements = ({ darkMode }) => {
               className={`group relative rounded-3xl p-6 sm:p-8 border transition-all duration-300 hover:-translate-y-2 backdrop-blur-md flex flex-col justify-between ${
                 darkMode
                   ? "bg-gray-900/60 border-gray-800 hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]"
-                  : "bg-white/90 border-gray-200/80 hover:border-emerald-500/40 hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)]"
+                  : "bg-white/80 border-gray-200/80 hover:border-emerald-500/40 hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)]"
               }`}
             >
               <div>

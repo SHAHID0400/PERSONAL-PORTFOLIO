@@ -15,10 +15,8 @@ const About = ({ darkMode }) => {
   return (
     <section
       id="about"
-      className={`lg:py-20 px-4 sm:px-6 relative transition-colors duration-300 ${
-        darkMode
-          ? "bg-black text-white"
-          : "bg-gradient-to-b from-white via-emerald-50/20 to-white text-gray-900"
+      className={`lg:py-20 px-4 sm:px-6 relative transition-colors duration-300 bg-transparent ${
+        darkMode ? "text-white" : "text-gray-900"
       }`}
     >
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
@@ -69,8 +67,8 @@ const About = ({ darkMode }) => {
           <div
             className={`rounded-2xl p-5 sm:p-6 mb-6 transition-all duration-300 ${
               darkMode
-                ? "bg-gray-900/70 border border-gray-800 shadow-xl backdrop-blur-md"
-                : "bg-white/90 border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-md"
+                ? "bg-gray-900/60 border border-gray-800 shadow-xl backdrop-blur-md"
+                : "bg-white/80 border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur-md"
             }`}
           >
             {/* Terminal Top Bar */}
@@ -124,8 +122,8 @@ const About = ({ darkMode }) => {
             <div
               className={`p-3.5 rounded-xl text-center border transition-all ${
                 darkMode
-                  ? "bg-gray-900/50 border-gray-800"
-                  : "bg-white/90 border-gray-100 shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
+                  ? "bg-gray-900/40 border-gray-800"
+                  : "bg-white/80 border-gray-100 shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
               }`}
             >
               <div className="text-lg sm:text-2xl font-bold text-emerald-500 dark:text-emerald-400">
@@ -143,8 +141,8 @@ const About = ({ darkMode }) => {
             <div
               className={`p-3.5 rounded-xl text-center border transition-all ${
                 darkMode
-                  ? "bg-gray-900/50 border-gray-800"
-                  : "bg-white/90 border-gray-100 shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
+                  ? "bg-gray-900/40 border-gray-800"
+                  : "bg-white/80 border-gray-100 shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
               }`}
             >
               <div className="text-lg sm:text-2xl font-bold text-amber-500 dark:text-amber-400">
@@ -162,8 +160,8 @@ const About = ({ darkMode }) => {
             <div
               className={`p-3.5 rounded-xl text-center border transition-all ${
                 darkMode
-                  ? "bg-gray-900/50 border-gray-800"
-                  : "bg-white/90 border-gray-100 shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
+                  ? "bg-gray-900/40 border-gray-800"
+                  : "bg-white/80 border-gray-100 shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
               }`}
             >
               <div className="text-lg sm:text-2xl font-bold text-emerald-500 dark:text-emerald-400">

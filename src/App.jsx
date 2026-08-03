@@ -6,6 +6,7 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import Achievements from "./components/Achievements";
 import Aos from "aos";
 import { motion, useScroll } from "framer-motion";
 
@@ -50,6 +51,7 @@ const App = () => {
       <Hero darkMode={darkMode} />
       <About darkMode={darkMode} />
       <Skills darkMode={darkMode} />
+      <Achievements darkMode={darkMode} />
       <Projects darkMode={darkMode} />
       <Contact darkMode={darkMode} />
       <Footer darkMode={darkMode} />

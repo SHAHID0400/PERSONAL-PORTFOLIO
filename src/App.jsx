@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Achievements from "./components/Achievements";
 import ParticlesBackground from "./components/ParticlesBackground";
+import SkillsSphere from "./components/SkillsSphere3D";
 import Aos from "aos";
 import { motion, useScroll } from "framer-motion";
 
@@ -52,7 +53,8 @@ const App = () => {
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <Hero darkMode={darkMode} />
         <About darkMode={darkMode} />
-        <Skills darkMode={darkMode} />
+        <SkillsSphere darkMode={darkMode} />
+        {/* <Skills darkMode={darkMode} /> */}
         <Achievements darkMode={darkMode} />
         <Projects darkMode={darkMode} />
         <Contact darkMode={darkMode} />

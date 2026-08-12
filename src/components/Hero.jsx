@@ -5,7 +5,7 @@ import linkden from "../assets/linkden.png";
 import facebook from "../assets/facebook.jpg";
 import github from "../assets/github.png";
 import CV from "../assets/CV.pdf";
-import hero from "../assets/hero.png";
+import hero from "../assets/hero1.png";
 import { DownloadIcon, Mail } from "lucide-react";
 import SplineCube from "./SplineCube";
 
@@ -172,25 +172,34 @@ const Hero = ({ darkMode }) => {
             </div>
           </div>
 
-          {/* RIGHT SECTION / HERO IMAGE */}
+          {/* RIGHT SECTION / ANIMATED HERO IMAGE */}
           <div
             className="lg:w-1/2 w-full max-w-md lg:max-w-lg mt-6 lg:mt-0 flex justify-center"
             data-aos="fade-left"
             data-aos-delay="400"
           >
-            <div className="relative w-full">
-              {/* Glassmorphic Container Card Frame */}
+            <div className="relative w-full flex justify-center items-center">
+              {/* Floating Ambient Glow */}
               <div
-                className={`relative overflow-hidden rounded-3xl p-2 sm:p-3 transition-all duration-300 border ${
+                className={`absolute inset-0 rounded-3xl blur-2xl transition-all duration-500 animate-pulse ${
                   darkMode
-                    ? "bg-gray-950/80 border-emerald-500/30 shadow-[0_0_35px_rgba(16,185,129,0.15)]"
-                    : "bg-slate-900/95 border-emerald-500/40 shadow-[0_20px_40px_rgba(0,0,0,0.15)] ring-4 ring-emerald-500/10"
+                    ? "bg-gradient-to-tr from-emerald-500/30 to-amber-500/20 opacity-70"
+                    : "bg-gradient-to-tr from-emerald-400/25 to-teal-400/25 opacity-60"
+                }`}
+              />
+
+              {/* Dynamic Floating Image Frame */}
+              <div
+                className={`relative w-full overflow-hidden rounded-3xl p-1 transition-all duration-500 hover:scale-[1.02] ${
+                  darkMode
+                    ? "bg-gradient-to-b from-emerald-500/40 via-gray-800/20 to-amber-500/30 shadow-[0_10px_40px_rgba(0,0,0,0.6)]"
+                    : "bg-gradient-to-b from-emerald-400/50 via-white/50 to-teal-300/50 shadow-[0_15px_35px_rgba(16,185,129,0.15)]"
                 }`}
               >
                 <img
                   src={hero}
                   alt="MD SHAHID"
-                  className="w-full h-auto object-cover rounded-2xl transform hover:scale-[1.02] transition-transform duration-500"
+                  className="w-full h-auto object-cover rounded-[22px] transform transition-transform duration-700 ease-in-out hover:scale-105 hover:-rotate-1"
                 />
               </div>
             </div>

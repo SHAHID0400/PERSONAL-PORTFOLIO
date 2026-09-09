@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import postgramImg from "../assets/postgram.png"; // Aapka download kiya hua image
 import project1 from "../assets/project1.png";
 import project2 from "../assets/project2.webp";
 import project3 from "../assets/project3.png";
@@ -18,52 +19,88 @@ const Projects = ({ darkMode }) => {
 
   const projects = [
     {
+      id: 0,
+      title: "Postgram",
+      status: "Live",
+      isLive: true,
+      description:
+        "A full-stack interactive social media platform where users can create profiles, upload and share image posts, and explore real-time community feeds with secure authentication and responsive UI.",
+      image: postgramImg,
+      tags: ["React", "Node.js", "Express.js", "MongoDB"],
+      githubUrl: "#", // Yahan apna GitHub repo link daal sakte hain
+      demoUrl: "https://post-gram-lac.vercel.app/",
+    },
+    {
       id: 1,
       title: "E-Commerce Platform",
+      status: "In Progress",
+      isLive: false,
       description:
         "A full-stack e-commerce platform built with the MERN stack featuring user authentication, product browsing, shopping cart, secure checkout, order management, and an intuitive admin dashboard for managing products and customers.",
       image: project1,
       tags: ["React", "Node.js", "MongoDB"],
+      githubUrl: "#",
+      demoUrl: "#",
     },
     {
       id: 2,
       title: "Fitness Tracker App",
+      status: "In Progress",
+      isLive: false,
       description:
         "A responsive fitness tracking application that helps users monitor workouts, track daily progress, set fitness goals, and visualize performance through interactive charts and personalized analytics.",
       image: project2,
       tags: ["React-Native", "Firebase"],
+      githubUrl: "#",
+      demoUrl: "#",
     },
     {
       id: 3,
       title: "Content Generator",
+      status: "In Progress",
+      isLive: false,
       description:
         "An AI-powered content generation tool that creates high-quality blogs, social media captions, product descriptions, and marketing copy instantly, helping users save time and improve productivity.",
       image: project3,
       tags: ["Python", "OpenAI", "MongoDB"],
+      githubUrl: "#",
+      demoUrl: "#",
     },
     {
       id: 4,
       title: "Dashboard",
+      status: "In Progress",
+      isLive: false,
       description:
         "A modern analytics dashboard that displays real-time business insights through interactive charts, tables, and KPI cards. It includes user management, data visualization, filtering, and responsive design for seamless monitoring.",
       image: project4,
       tags: ["React", "Node.js", "MongoDB"],
+      githubUrl: "#",
+      demoUrl: "#",
     },
     {
       id: 5,
       title: "Task Management",
+      status: "In Progress",
+      isLive: false,
       description:
         "A modern task management application designed to help teams and individuals organize projects, assign tasks, set priorities, track deadlines, and monitor progress through an intuitive dashboard with real-time productivity insights.",
       image: project5,
       tags: ["Laravel", "Vue.js", "MongoDB"],
+      githubUrl: "#",
+      demoUrl: "#",
     },
     {
       id: 6,
       title: "Authentication System",
+      status: "In Progress",
+      isLive: false,
       description:
         "A secure authentication system built with the MERN stack that enables users to register, log in, and manage their accounts safely. It includes JWT-based authentication, password encryption, protected routes, role-based access control, email verification, and password reset functionality.",
       image: project6,
       tags: ["React", "Node.js", "MongoDB", "Express.js"],
+      githubUrl: "#",
+      demoUrl: "#",
     },
   ];
 
@@ -134,7 +171,7 @@ const Projects = ({ darkMode }) => {
               darkMode ? "text-gray-400" : "text-gray-600"
             }`}
           >
-            A showcase of my recent work and digital products
+            A showcase of my recent work, ongoing builds, and digital products
           </p>
         </div>
 
@@ -169,7 +206,9 @@ const Projects = ({ darkMode }) => {
             <div
               className="flex transition-transform duration-700 ease-in-out"
               style={{
-                transform: `translateX(-${currentIndex * (100 / cardsPerPage)}%)`,
+                transform: `translateX(-${
+                  currentIndex * (100 / cardsPerPage)
+                }%)`,
               }}
             >
               {projects.map((project) => (
@@ -184,14 +223,42 @@ const Projects = ({ darkMode }) => {
                         : "bg-white/80 border-gray-100 hover:border-emerald-500/40 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] backdrop-blur-md"
                     }`}
                   >
-                    {/* Project Image */}
+                    {/* Project Image & Status Badge */}
                     <div className="h-48 sm:h-52 overflow-hidden relative">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <a
+                        href={project.demoUrl !== "#" ? project.demoUrl : undefined}
+                        target={project.demoUrl !== "#" ? "_blank" : "_self"}
+                        rel="noopener noreferrer"
+                        className="block w-full h-full"
+                      >
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </a>
+
+                      {/* Status Badge */}
+                      <div className="absolute top-3 right-3 z-10 pointer-events-none">
+                        {project.isLive ? (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 backdrop-blur-md shadow-lg">
+                            <span className="relative flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            Live
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40 backdrop-blur-md shadow-lg">
+                            <span className="relative flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                            </span>
+                            In Progress
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     {/* Card Body */}
@@ -233,7 +300,9 @@ const Projects = ({ darkMode }) => {
                         {/* Action Buttons */}
                         <div className="flex gap-3">
                           <a
-                            href="#"
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className={`flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border transition-all duration-300 ${
                               darkMode
                                 ? "bg-gray-800/80 border-gray-700 text-gray-200 hover:bg-gray-700 hover:text-white"
@@ -244,7 +313,9 @@ const Projects = ({ darkMode }) => {
                             <span>Code</span>
                           </a>
                           <a
-                            href="#"
+                            href={project.demoUrl}
+                            target={project.demoUrl !== "#" ? "_blank" : "_self"}
+                            rel="noopener noreferrer"
                             className="flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:scale-[1.02] transition-all duration-300"
                           >
                             <FaExternalLinkAlt className="text-xs" />

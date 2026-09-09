@@ -110,7 +110,7 @@ const About = ({ darkMode }) => {
                       : "border-emerald-200 bg-emerald-50/80 text-emerald-700 shadow-xs"
                   }`}
                 >
-                  <span className="text-emerald-500 mr-1">✦</span>
+                  
                   {skill}
                 </span>
               ))}

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import postgramImg from "../assets/postgram.png"; // Aapka download kiya hua image
+import postgramImg from "../assets/postgram.png";
+import cardoraImg from "../assets/Cardora.png";
+import realEstateImg from "../assets/Real-Estate.png";
 import project1 from "../assets/project1.png";
 import project2 from "../assets/project2.webp";
 import project3 from "../assets/project3.png";
 import project4 from "../assets/project4.png";
-import project5 from "../assets/project5.png";
-import project6 from "../assets/project6.png";
 import {
   FaExternalLinkAlt,
   FaGithub,
@@ -16,89 +16,90 @@ import {
 const Projects = ({ darkMode }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
+  const [isPaused, setIsPaused] = useState(false); // <-- Mouse hover pause control
 
   const projects = [
     {
       id: 0,
-      title: "Postgram",
+      title: "AvasaRealty – Real Estate Marketplace",
+      status: "Live",
+      isLive: true,
+      description:
+        "A full-stack property technology marketplace featuring Cloudinary media storage, interactive property filters, EmailJS advisory forms, and an integrated real-time Gemini AI voice & text assistant.",
+      image: realEstateImg,
+      tags: ["React", "Node.js", "Express.js", "MongoDB", "Cloudinary", "Gemini AI"],
+      githubUrl: "https://github.com/SHAHID0400/real-estate-platform",
+      demoUrl: "https://real-estate-platform-lac.vercel.app/",
+    },
+    {
+      id: 1,
+      title: "Cardora – Digital vCard & Profile Hub",
+      status: "Live",
+      isLive: true,
+      description:
+        "A sleek interactive digital business card application engineered with fluid Framer Motion animations, theme customization, responsive contact integration, and dynamic social profile sharing.",
+      image: cardoraImg,
+      tags: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
+      githubUrl: "https://github.com/SHAHID0400",
+      demoUrl: "#",
+    },
+    {
+      id: 2,
+      title: "Postgram – Social Media Platform",
       status: "Live",
       isLive: true,
       description:
         "A full-stack interactive social media platform where users can create profiles, upload and share image posts, and explore real-time community feeds with secure authentication and responsive UI.",
       image: postgramImg,
-      tags: ["React", "Node.js", "Express.js", "MongoDB"],
-      githubUrl: "#", // Yahan apna GitHub repo link daal sakte hain
+      tags: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
+      githubUrl: "https://github.com/SHAHID0400",
       demoUrl: "https://post-gram-lac.vercel.app/",
     },
     {
-      id: 1,
+      id: 3,
       title: "E-Commerce Platform",
       status: "In Progress",
       isLive: false,
       description:
-        "A full-stack e-commerce platform built with the MERN stack featuring user authentication, product browsing, shopping cart, secure checkout, order management, and an intuitive admin dashboard for managing products and customers.",
+        "A full-stack e-commerce platform built with the MERN stack featuring user authentication, product browsing, shopping cart, secure checkout, order management, and an intuitive admin dashboard.",
       image: project1,
-      tags: ["React", "Node.js", "MongoDB"],
+      tags: ["React", "Node.js", "MongoDB", "Express.js"],
       githubUrl: "#",
       demoUrl: "#",
     },
     {
-      id: 2,
+      id: 4,
       title: "Fitness Tracker App",
       status: "In Progress",
       isLive: false,
       description:
         "A responsive fitness tracking application that helps users monitor workouts, track daily progress, set fitness goals, and visualize performance through interactive charts and personalized analytics.",
       image: project2,
-      tags: ["React-Native", "Firebase"],
-      githubUrl: "#",
-      demoUrl: "#",
-    },
-    {
-      id: 3,
-      title: "Content Generator",
-      status: "In Progress",
-      isLive: false,
-      description:
-        "An AI-powered content generation tool that creates high-quality blogs, social media captions, product descriptions, and marketing copy instantly, helping users save time and improve productivity.",
-      image: project3,
-      tags: ["Python", "OpenAI", "MongoDB"],
-      githubUrl: "#",
-      demoUrl: "#",
-    },
-    {
-      id: 4,
-      title: "Dashboard",
-      status: "In Progress",
-      isLive: false,
-      description:
-        "A modern analytics dashboard that displays real-time business insights through interactive charts, tables, and KPI cards. It includes user management, data visualization, filtering, and responsive design for seamless monitoring.",
-      image: project4,
-      tags: ["React", "Node.js", "MongoDB"],
+      tags: ["React-Native", "Firebase", "Tailwind CSS"],
       githubUrl: "#",
       demoUrl: "#",
     },
     {
       id: 5,
-      title: "Task Management",
+      title: "AI Content Generator",
       status: "In Progress",
       isLive: false,
       description:
-        "A modern task management application designed to help teams and individuals organize projects, assign tasks, set priorities, track deadlines, and monitor progress through an intuitive dashboard with real-time productivity insights.",
-      image: project5,
-      tags: ["Laravel", "Vue.js", "MongoDB"],
+        "An AI-powered content generation tool that creates high-quality blogs, social media captions, product descriptions, and marketing copy instantly, helping users save time and improve productivity.",
+      image: project3,
+      tags: ["React", "Python", "OpenAI API", "MongoDB"],
       githubUrl: "#",
       demoUrl: "#",
     },
     {
       id: 6,
-      title: "Authentication System",
+      title: "Executive Analytics Dashboard",
       status: "In Progress",
       isLive: false,
       description:
-        "A secure authentication system built with the MERN stack that enables users to register, log in, and manage their accounts safely. It includes JWT-based authentication, password encryption, protected routes, role-based access control, email verification, and password reset functionality.",
-      image: project6,
-      tags: ["React", "Node.js", "MongoDB", "Express.js"],
+        "A modern analytics dashboard that displays real-time business insights through interactive charts, tables, and KPI cards with data visualization, filtering, and responsive design.",
+      image: project4,
+      tags: ["React", "Tailwind CSS", "Node.js", "MongoDB"],
       githubUrl: "#",
       demoUrl: "#",
     },
@@ -122,14 +123,18 @@ const Projects = ({ darkMode }) => {
 
   const maxIndex = Math.max(0, projects.length - cardsPerPage);
 
+  // Auto Slider Interval (Hover hone par pause rahega)
   useEffect(() => {
+    if (isPaused) return;
+
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex >= maxIndex ? 0 : prevIndex + 1,
+        prevIndex >= maxIndex ? 0 : prevIndex + 1
       );
     }, 2500);
+
     return () => clearInterval(timer);
-  }, [maxIndex, currentIndex]);
+  }, [maxIndex, isPaused]);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
@@ -137,7 +142,7 @@ const Projects = ({ darkMode }) => {
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? maxIndex : prevIndex - 1,
+      prevIndex === 0 ? maxIndex : prevIndex - 1
     );
   };
 
@@ -175,8 +180,12 @@ const Projects = ({ darkMode }) => {
           </p>
         </div>
 
-        {/* SLIDER MAIN WRAPPER */}
-        <div className="relative group px-2 sm:px-4 mb-12">
+        {/* SLIDER MAIN WRAPPER (Mouse enter par pause, leave par resume) */}
+        <div
+          className="relative group px-2 sm:px-4 mb-12"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           {/* Left Arrow Button */}
           <button
             onClick={handlePrev}
@@ -349,7 +358,7 @@ const Projects = ({ darkMode }) => {
         {/* View All Projects Button */}
         <div className="flex justify-center" data-aos="zoom-in">
           <a
-            href="https://github.com"
+            href="https://github.com/SHAHID0400"
             target="_blank"
             rel="noopener noreferrer"
             className={`inline-flex items-center font-semibold gap-2.5 px-8 py-3.5 text-sm sm:text-base rounded-full shadow-md transition-all duration-300 hover:scale-105 cursor-pointer ${

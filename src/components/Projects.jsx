@@ -29,7 +29,7 @@ const Projects = ({ darkMode }) => {
       image: realEstateImg,
       tags: ["React", "Node.js", "Express.js", "MongoDB", "Cloudinary", "Gemini AI"],
       githubUrl: "https://github.com/SHAHID0400/real-estate-platform",
-      demoUrl: "https://real-estate-platform-lac.vercel.app/",
+      demoUrl: "https://real-estate-platform-kappa-one.vercel.app/",
     },
     {
       id: 1,
@@ -41,7 +41,7 @@ const Projects = ({ darkMode }) => {
       image: cardoraImg,
       tags: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
       githubUrl: "https://github.com/SHAHID0400",
-      demoUrl: "#",
+      demoUrl: "https://cardora-project.vercel.app/",
     },
     {
       id: 2,

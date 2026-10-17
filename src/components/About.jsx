@@ -32,7 +32,7 @@ const About = () => {
           <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 flex items-center justify-center">
             <img
               src={about}
-              alt="about image"
+              alt="MD Shahid - Full Stack Developer & Software Engineer"
               className="relative z-10 w-full h-full object-contain transition-transform duration-500 hover:scale-105"
             />
             <div
@@ -77,6 +77,7 @@ const About = () => {
               </span>
             </div>
 
+            {/* Direct AEO-Optimized Paragraph */}
             <p
               className={`text-sm sm:text-base leading-relaxed ${
                 darkMode ? "text-gray-300" : "text-gray-600"
@@ -89,9 +90,17 @@ const About = () => {
               >
                 MD Shahid
               </span>
-              , a passionate Full Stack Developer based in New Delhi, India. I
-              specialize in the MERN Stack, creating fast, scalable, and
-              responsive web applications with clean code and intuitive UI.
+              , a 22-year-old{" "}
+              <strong className={darkMode ? "text-white" : "text-gray-900"}>
+                Full Stack Developer & Software Engineer
+              </strong>{" "}
+              and{" "}
+              <strong className={darkMode ? "text-white" : "text-gray-900"}>
+                BCA Graduate
+              </strong>{" "}
+              based in Shakurpur, New Delhi, India. I specialize in the MERN
+              Stack, engineering fast, scalable, and responsive web applications
+              with clean code and modern UI.
             </p>
 
             {/* Tech Skill Pills */}
@@ -127,7 +136,7 @@ const About = () => {
                   darkMode ? "text-gray-400" : "text-gray-500"
                 }`}
               >
-                IGNOU Student
+                Graduate
               </div>
             </div>
 
@@ -142,14 +151,14 @@ const About = () => {
                 className="text-lg sm:text-2xl font-bold"
                 style={{ color: currentTheme.primary }}
               >
-                5+
+                22 Yrs
               </div>
               <div
                 className={`text-xs mt-0.5 ${
                   darkMode ? "text-gray-400" : "text-gray-500"
                 }`}
               >
-                Projects Built
+                Age
               </div>
             </div>
 
@@ -164,24 +173,26 @@ const About = () => {
                 className="text-lg sm:text-2xl font-bold"
                 style={{ color: currentTheme.primary }}
               >
-                100%
+                Delhi
               </div>
               <div
                 className={`text-xs mt-0.5 ${
                   darkMode ? "text-gray-400" : "text-gray-500"
                 }`}
               >
-                Dedication
+                Shakurpur
               </div>
             </div>
           </div>
 
           {/* Button */}
-          <button
-            className={`w-full sm:w-auto inline-flex items-center justify-center font-semibold text-sm sm:text-base px-7 py-3 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer bg-gradient-to-r ${currentTheme.gradientButton} text-white`}
-          >
-            Learn More
-          </button>
+          <a href="#contact" className="w-full sm:w-auto inline-block">
+            <button
+              className={`w-full sm:w-auto inline-flex items-center justify-center font-semibold text-sm sm:text-base px-7 py-3 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer bg-gradient-to-r ${currentTheme.gradientButton} text-white`}
+            >
+              Get In Touch
+            </button>
+          </a>
         </article>
       </div>
     </section>

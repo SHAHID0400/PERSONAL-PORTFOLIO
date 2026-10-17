@@ -8,41 +8,36 @@ import CV from "../assets/CV.pdf";
 import hero from "../assets/hero1.png";
 import { DownloadIcon, Mail } from "lucide-react";
 import SplineCube from "./SplineCube";
+import { useTheme } from "../context/ThemeContext";
 
-const Hero = ({ darkMode }) => {
+const Hero = () => {
+  const { currentTheme, darkMode } = useTheme();
+
   const socialIcons = [
-    { icon: instagram, alt: "Instagram" },
-    { icon: linkden, alt: "Linkden" },
-    { icon: facebook, alt: "Facebook" },
-    { icon: github, alt: "GitHub" },
+    {
+      icon: instagram,
+      alt: "Instagram",
+      link: "https://www.instagram.com/mdshahid0400?srtk=MTIwM3VoMTV2dDh2ag==",
+    },
+    {
+      icon: linkden,
+      alt: "LinkedIn",
+      link: "https://www.linkedin.com/in/md-shahid-7a823541b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    },
+    {
+      icon: github,
+      alt: "GitHub",
+      link: "https://github.com/SHAHID0400",
+    },
+    {
+      icon: facebook,
+      alt: "Facebook",
+      link: "#",
+    },
   ];
 
-  const darkTheme = {
-    textPrimary: "text-white",
-    textSecondary: "text-gray-300",
-    buttonSecondary:
-      "text-white border-2 border-emerald-500 hover:bg-emerald-600/20 hover:border-emerald-400",
-    decorativeCircle: "bg-teal-500 opacity-10",
-    typewriterBox:
-      "bg-gray-900/70 border-emerald-500/30 text-teal-300 shadow-[0_0_20px_rgba(20,184,166,0.15)] backdrop-blur-md",
-  };
-
-  const lightTheme = {
-    textPrimary: "text-gray-900",
-    textSecondary: "text-gray-600",
-    buttonSecondary:
-      "text-gray-800 border-2 border-emerald-500 hover:bg-emerald-500 hover:text-white shadow-xs",
-    decorativeCircle: "bg-teal-400 opacity-15",
-    typewriterBox:
-      "bg-white/90 border-emerald-500/30 text-emerald-700 shadow-[0_10px_25px_rgba(0,0,0,0.05)] backdrop-blur-md",
-  };
-
-  const theme = darkMode ? darkTheme : lightTheme;
-
   return (
-    <div
-      className={`relative overflow-hidden min-h-screen flex flex-col transition-colors duration-300 bg-transparent`}
-    >
+    <div className="relative overflow-hidden min-h-screen flex flex-col transition-colors duration-300 bg-transparent">
       <section
         id="home"
         data-aos-delay="250"
@@ -56,8 +51,9 @@ const Hero = ({ darkMode }) => {
               {socialIcons.map((social, index) => (
                 <a
                   key={index}
-                  href="#"
+                  href={social.link}
                   target="_blank"
+                  rel="noopener noreferrer"
                   data-aos-delay={`${400 + index * 100}`}
                   className="transform hover:scale-110 transition-transform duration-300 mt-1"
                 >
@@ -74,28 +70,41 @@ const Hero = ({ darkMode }) => {
 
             {/* Main Title */}
             <h1
-              className={`title-font text-3xl sm:text-4xl lg:text-5xl mb-3 font-bold ${theme.textPrimary}`}
+              className={`title-font text-3xl sm:text-4xl lg:text-5xl mb-3 font-bold ${
+                darkMode ? "text-white" : "text-gray-900"
+              }`}
               data-aos="fade-up"
               data-aos-delay="500"
             >
               Hi, I'm{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500">
+              <span
+                className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradientText}`}
+              >
                 MD SHAHID
               </span>
             </h1>
 
-            {/* DYNAMIC THEMED TYPEWRITER BOX */}
+            {/* Typewriter Box */}
             <div
               className="w-full max-w-xs sm:max-w-md mb-2 flex justify-center lg:justify-start"
               data-aos="fade-up"
               data-aos-delay="550"
             >
               <div
-                className={`relative inline-flex items-center px-4 py-2 rounded-xl border overflow-hidden w-full sm:w-auto ${theme.typewriterBox}`}
+                className={`relative inline-flex items-center px-4 py-2 rounded-xl border overflow-hidden w-full sm:w-auto backdrop-blur-md ${
+                  darkMode
+                    ? "bg-gray-900/70 border-gray-800 text-white"
+                    : "bg-white/90 border-gray-200 text-gray-800 shadow-md"
+                }`}
               >
-                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 to-amber-400 rounded-l-xl" />
+                <div
+                  className={`absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b ${currentTheme.gradientButton} rounded-l-xl`}
+                />
 
-                <span className="text-emerald-500 font-bold text-lg sm:text-xl mr-2 pl-2">
+                <span
+                  className="font-bold text-lg sm:text-xl mr-2 pl-2"
+                  style={{ color: currentTheme.primary }}
+                >
                   &gt;
                 </span>
 
@@ -130,15 +139,16 @@ const Hero = ({ darkMode }) => {
 
             {/* Description */}
             <p
-              className={`mb-5 sm:mb-6 leading-relaxed max-w-md sm:max-w-lg mt-2 text-sm sm:text-base ${theme.textSecondary}`}
+              className={`mb-5 sm:mb-6 leading-relaxed max-w-md sm:max-w-lg mt-2 text-sm sm:text-base ${
+                darkMode ? "text-gray-300" : "text-gray-600"
+              }`}
               data-aos="fade-up"
               data-aos-delay="600"
             >
               I'm a passionate Full Stack Developer who loves turning ideas into
               powerful digital products. I specialize in the MERN Stack,
-              creating fast, responsive, and scalable web applications with
-              clean code, intuitive user interfaces, and a strong focus on
-              performance, usability, and continuous innovation.
+              creating fast, responsive, and scalable web applications with clean
+              code and intuitive user interfaces.
             </p>
 
             {/* Buttons */}
@@ -150,9 +160,7 @@ const Hero = ({ darkMode }) => {
               >
                 <a href={CV} download className="w-full sm:w-auto">
                   <button
-                    className="w-full sm:w-auto inline-flex items-center justify-center text-white bg-gradient-to-r
-                    from-amber-400 via-amber-500 to-amber-600 border-0 py-2.5 px-6 sm:px-7 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)]
-                    rounded-full text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                    className={`w-full sm:w-auto inline-flex items-center justify-center text-white bg-gradient-to-r ${currentTheme.gradientButton} border-0 py-2.5 px-6 sm:px-7 rounded-full text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-md cursor-pointer`}
                   >
                     <DownloadIcon className="w-4 h-4 mr-2" />
                     Download CV
@@ -160,9 +168,12 @@ const Hero = ({ darkMode }) => {
                 </a>
                 <a href="#contact" className="w-full sm:w-auto">
                   <button
-                    className={`w-full sm:w-auto inline-flex items-center ${theme.buttonSecondary} justify-center
-                    py-2.5 px-6 sm:px-7 hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]
-                    rounded-full text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer`}
+                    style={{ borderColor: currentTheme.primary }}
+                    className={`w-full sm:w-auto inline-flex items-center justify-center border-2 py-2.5 px-6 sm:px-7 rounded-full text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer ${
+                      darkMode
+                        ? "text-white hover:bg-white/10"
+                        : "text-gray-800 hover:bg-gray-100"
+                    }`}
                   >
                     <Mail className="w-4 h-4 mr-2" />
                     Contact Me
@@ -172,28 +183,25 @@ const Hero = ({ darkMode }) => {
             </div>
           </div>
 
-          {/* RIGHT SECTION / ANIMATED HERO IMAGE */}
+          {/* RIGHT SECTION */}
           <div
             className="lg:w-1/2 w-full max-w-md lg:max-w-lg mt-6 lg:mt-0 flex justify-center"
             data-aos="fade-left"
             data-aos-delay="400"
           >
             <div className="relative w-full flex justify-center items-center">
-              {/* Floating Ambient Glow */}
               <div
-                className={`absolute inset-0 rounded-3xl blur-2xl transition-all duration-500 animate-pulse ${
-                  darkMode
-                    ? "bg-gradient-to-tr from-emerald-500/30 to-amber-500/20 opacity-70"
-                    : "bg-gradient-to-tr from-emerald-400/25 to-teal-400/25 opacity-60"
-                }`}
+                className="absolute inset-0 rounded-3xl blur-2xl opacity-50 animate-pulse transition-all duration-700"
+                style={{
+                  background: `radial-gradient(circle, ${currentTheme.primary} 0%, transparent 70%)`,
+                }}
               />
 
-              {/* Dynamic Floating Image Frame */}
               <div
                 className={`relative w-full overflow-hidden rounded-3xl p-1 transition-all duration-500 hover:scale-[1.02] ${
                   darkMode
-                    ? "bg-gradient-to-b from-emerald-500/40 via-gray-800/20 to-amber-500/30 shadow-[0_10px_40px_rgba(0,0,0,0.6)]"
-                    : "bg-gradient-to-b from-emerald-400/50 via-white/50 to-teal-300/50 shadow-[0_15px_35px_rgba(16,185,129,0.15)]"
+                    ? "bg-gradient-to-b from-gray-800/80 via-gray-900/60 to-gray-800/80 shadow-2xl"
+                    : "bg-gradient-to-b from-white via-gray-100 to-white shadow-xl"
                 }`}
               >
                 <img
@@ -204,10 +212,6 @@ const Hero = ({ darkMode }) => {
               </div>
             </div>
           </div>
-
-          <div
-            className={`absolute -top-20 -left-20 w-40 h-40 sm:w-64 sm:h-64 ${theme.decorativeCircle} rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse delay-1000 hidden sm:block`}
-          />
         </div>
       </section>
     </div>

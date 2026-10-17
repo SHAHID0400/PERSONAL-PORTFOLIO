@@ -10,8 +10,8 @@ import {
   FaCss3Alt,
 } from "react-icons/fa";
 import { SiMongodb, SiExpress, SiTailwindcss } from "react-icons/si";
+import { useTheme } from "../context/ThemeContext";
 
-// Skills Data
 const skillsData = [
   { name: "HTML", level: "95%", val: 95, icon: <FaHtml5 className="text-orange-500" />, color: "from-orange-500 to-red-500", bg: "bg-orange-500/10" },
   { name: "CSS", level: "96%", val: 96, icon: <FaCss3Alt className="text-blue-500" />, color: "from-blue-500 to-cyan-500", bg: "bg-blue-500/10" },
@@ -23,7 +23,6 @@ const skillsData = [
   { name: "Tailwind CSS", level: "95%", val: 95, icon: <SiTailwindcss className="text-sky-400" />, color: "from-sky-400 to-cyan-500", bg: "bg-sky-500/10" },
 ];
 
-// Single Arrow + Card Attached Component (Shooting Together)
 const AnimatedShootingCard = ({
   skill,
   index,
@@ -31,13 +30,13 @@ const AnimatedShootingCard = ({
   radius,
   isOpen,
   darkMode,
+  themeColor,
   onCompleteSkill,
 }) => {
   const [progress, setProgress] = useState(0);
   const timer = useRef(0);
   const hasCompleted = useRef(false);
 
-  // Staggered One-by-One Gap
   const delay = index * 0.7;
 
   useFrame((state, delta) => {
@@ -73,18 +72,16 @@ const AnimatedShootingCard = ({
 
   return (
     <group>
-      {/* 1. Curved Arrow Line */}
       {progress > 0.02 && (
         <QuadraticBezierLine
           start={[0, 0, 0]}
           end={[currX, currY, currZ]}
           mid={[midPoint.x, midPoint.y, midPoint.z]}
-          color="#10b981"
+          color={themeColor}
           lineWidth={2.5}
         />
       )}
 
-      {/* 2. SKILL CARD ATTACHED TO ARROW TIP */}
       {progress > 0.02 && (
         <mesh position={[currX, currY, currZ]}>
           <Html center distanceFactor={10}>
@@ -95,8 +92,8 @@ const AnimatedShootingCard = ({
               }}
               className={`p-3 sm:p-4 rounded-xl border backdrop-blur-xl shadow-2xl flex items-center gap-3 transition-all duration-100 ${
                 darkMode
-                  ? "bg-gray-950/95 border-emerald-500/60 text-white shadow-[0_0_25px_rgba(16,185,129,0.4)]"
-                  : "bg-white border-teal-400 text-gray-800 shadow-xl"
+                  ? "bg-gray-950/95 border-gray-700 text-white"
+                  : "bg-white border-gray-200 text-gray-800 shadow-xl"
               }`}
             >
               <div className={`p-2 rounded-lg ${skill.bg} text-xl sm:text-2xl`}>
@@ -106,7 +103,7 @@ const AnimatedShootingCard = ({
                 <span className="font-bold text-xs sm:text-sm whitespace-nowrap uppercase tracking-wider">
                   {skill.name}
                 </span>
-                <span className="text-[10px] font-semibold text-emerald-400">
+                <span className="text-[10px] font-semibold" style={{ color: themeColor }}>
                   {skill.level}
                 </span>
               </div>
@@ -118,20 +115,18 @@ const AnimatedShootingCard = ({
   );
 };
 
-// 3D Scene Inside Canvas
-const Scene = ({ darkMode, isOpen, setIsOpen, onSkillComplete, completedCount }) => {
+const Scene = ({ darkMode, themeColor, isOpen, setIsOpen, onSkillComplete, completedCount }) => {
   const deployPercentage = Math.round((completedCount / skillsData.length) * 100);
 
   return (
     <group>
-      {/* 🟢 ENLARGED SPHERE (BADA SPHERE - Scale: 1.35) */}
       <mesh onClick={() => setIsOpen(true)} scale={1.35}>
         <sphereGeometry args={[1, 32, 32]} />
         <meshStandardMaterial
-          color={darkMode ? "#10b981" : "#0d9488"}
+          color={themeColor}
           wireframe
-          emissive={darkMode ? "#047857" : "#0f766e"}
-          emissiveIntensity={0.8}
+          emissive={themeColor}
+          emissiveIntensity={0.6}
         />
       </mesh>
 
@@ -141,27 +136,29 @@ const Scene = ({ darkMode, isOpen, setIsOpen, onSkillComplete, completedCount })
             onClick={() => setIsOpen(true)}
             className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap cursor-pointer transition-all shadow-2xl border animate-bounce ${
               darkMode
-                ? "bg-gray-950/90 text-emerald-400 border-emerald-500/60 hover:bg-emerald-950"
-                : "bg-white text-teal-700 border-teal-300 hover:bg-emerald-50"
+                ? "bg-gray-950/90 text-white border-gray-700"
+                : "bg-white text-gray-800 border-gray-300"
             }`}
           >
-            🏹 Tap Core to Launch Skills
+            🚀 Tap Core to Launch Skills
           </button>
         ) : (
           <div
             className={`px-4 py-2 rounded-full text-xs font-bold border backdrop-blur-md shadow-lg flex items-center gap-2 ${
               darkMode
-                ? "bg-gray-950/90 text-emerald-400 border-emerald-500/50"
-                : "bg-white/90 text-teal-700 border-teal-300"
+                ? "bg-gray-950/90 text-white border-gray-700"
+                : "bg-white/90 text-gray-800 border-gray-300"
             }`}
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+            <span
+              className="w-2.5 h-2.5 rounded-full animate-ping"
+              style={{ backgroundColor: themeColor }}
+            />
             Deploying: {deployPercentage}%
           </div>
         )}
       </Html>
 
-      {/* One-by-One Shooting Cards with Radius 4.2 */}
       {skillsData.map((skill, index) => (
         <AnimatedShootingCard
           key={index}
@@ -171,6 +168,7 @@ const Scene = ({ darkMode, isOpen, setIsOpen, onSkillComplete, completedCount })
           radius={4.2}
           isOpen={isOpen}
           darkMode={darkMode}
+          themeColor={themeColor}
           onCompleteSkill={onSkillComplete}
         />
       ))}
@@ -178,8 +176,8 @@ const Scene = ({ darkMode, isOpen, setIsOpen, onSkillComplete, completedCount })
   );
 };
 
-// Main Component
-const SkillsSphere3D = ({ darkMode }) => {
+const SkillsSphere3D = () => {
+  const { currentTheme, darkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [completedCount, setCompletedCount] = useState(0);
 
@@ -196,25 +194,6 @@ const SkillsSphere3D = ({ darkMode }) => {
 
   return (
     <section id="skills" className="py-20 relative bg-transparent overflow-hidden">
-      {/* Dynamic Keyframes for Staggered One-By-One Card Entry */}
-      <style>{`
-        @keyframes popCard {
-          0% {
-            opacity: 0;
-            transform: translateY(20px) scale(0.8);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-        .stagger-card {
-          opacity: 0;
-          animation: popCard 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-      `}</style>
-
-      {/* Heading */}
       <div className="text-center mb-10 px-4 relative z-10" data-aos="fade-up">
         <h2
           className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 tracking-tight ${
@@ -222,7 +201,9 @@ const SkillsSphere3D = ({ darkMode }) => {
           }`}
         >
           Technical{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500">
+          <span
+            className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradientText}`}
+          >
             Proficiency
           </span>
         </h2>
@@ -237,14 +218,13 @@ const SkillsSphere3D = ({ darkMode }) => {
         {isAllComplete && (
           <button
             onClick={handleReset}
-            className="mt-4 px-4 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/30 transition-all cursor-pointer"
+            className={`mt-4 px-4 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer ${currentTheme.tagBg}`}
           >
             🔄 Replay Arrow Launch
           </button>
         )}
       </div>
 
-      {/* 🔴 STATE 1: 3D ANIMATION STAGE (Adjusted Height for Bigger Sphere) */}
       {!isAllComplete ? (
         <div className="w-full h-[520px] sm:h-[580px] relative z-10">
           <Canvas camera={{ position: [0, 0, 9.5], fov: 50 }}>
@@ -252,6 +232,7 @@ const SkillsSphere3D = ({ darkMode }) => {
             <pointLight position={[10, 10, 10]} intensity={1.5} />
             <Scene
               darkMode={darkMode}
+              themeColor={currentTheme.primary}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               onSkillComplete={handleSkillComplete}
@@ -260,22 +241,17 @@ const SkillsSphere3D = ({ darkMode }) => {
           </Canvas>
         </div>
       ) : (
-        /* 🟢 STATE 2: FINAL GRID WITH ONE-BY-ONE STAGGERED DISPLAY */
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {skillsData.map((skill, index) => (
               <div
                 key={index}
-                style={{
-                  animationDelay: `${index * 0.15}s`,
-                }}
-                className={`stagger-card p-6 rounded-2xl border backdrop-blur-xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
+                className={`p-6 rounded-2xl border backdrop-blur-xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl ${currentTheme.borderGlow} ${
                   darkMode
-                    ? "bg-gray-950/80 border-emerald-500/20 text-white hover:border-emerald-400"
-                    : "bg-white border-gray-100 text-gray-800 hover:border-emerald-500"
+                    ? "bg-gray-950/80 border-gray-800 text-white"
+                    : "bg-white border-gray-100 text-gray-800"
                 }`}
               >
-                {/* Icon & Name */}
                 <div className="flex items-center gap-4 mb-5">
                   <div className={`p-3 rounded-xl ${skill.bg} text-3xl flex items-center justify-center`}>
                     {skill.icon}
@@ -285,7 +261,6 @@ const SkillsSphere3D = ({ darkMode }) => {
                   </h3>
                 </div>
 
-                {/* Proficiency Level */}
                 <div className="flex items-center justify-between text-sm font-semibold mb-2">
                   <span className={darkMode ? "text-gray-400" : "text-gray-500"}>
                     Proficiency
@@ -295,15 +270,12 @@ const SkillsSphere3D = ({ darkMode }) => {
                   </span>
                 </div>
 
-                {/* Progress Bar */}
                 <div className={`w-full h-2.5 rounded-full overflow-hidden ${darkMode ? "bg-gray-800" : "bg-gray-100"}`}>
                   <div
                     className={`h-full rounded-full bg-gradient-to-r ${skill.color} transition-all duration-1000 ease-out`}
                     style={{ width: skill.level }}
                   />
                 </div>
-
-                <div className="mt-4 w-12 h-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 opacity-60" />
               </div>
             ))}
           </div>

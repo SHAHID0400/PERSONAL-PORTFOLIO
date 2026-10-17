@@ -12,11 +12,13 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
+import { useTheme } from "../context/ThemeContext";
 
-const Projects = ({ darkMode }) => {
+const Projects = () => {
+  const { currentTheme, darkMode } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
-  const [isPaused, setIsPaused] = useState(false); // <-- Mouse hover pause control
+  const [isPaused, setIsPaused] = useState(false);
 
   const projects = [
     {
@@ -123,7 +125,6 @@ const Projects = ({ darkMode }) => {
 
   const maxIndex = Math.max(0, projects.length - cardsPerPage);
 
-  // Auto Slider Interval (Hover hone par pause rahega)
   useEffect(() => {
     if (isPaused) return;
 
@@ -149,15 +150,8 @@ const Projects = ({ darkMode }) => {
   return (
     <section
       id="projects"
-      className={`relative py-20 sm:py-28 transition-colors duration-300 bg-transparent`}
+      className="relative py-20 sm:py-28 transition-colors duration-300 bg-transparent"
     >
-      {/* Background Glow */}
-      <div
-        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] rounded-full blur-3xl pointer-events-none opacity-25 ${
-          darkMode ? "bg-teal-500/20" : "bg-emerald-300/30"
-        }`}
-      />
-
       <div className="container max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
         {/* Section Heading */}
         <div className="text-center mb-12 sm:mb-16" data-aos="fade-up">
@@ -167,7 +161,9 @@ const Projects = ({ darkMode }) => {
             }`}
           >
             My{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500">
+            <span
+              className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradientText}`}
+            >
               Projects
             </span>
           </h2>
@@ -180,7 +176,7 @@ const Projects = ({ darkMode }) => {
           </p>
         </div>
 
-        {/* SLIDER MAIN WRAPPER (Mouse enter par pause, leave par resume) */}
+        {/* SLIDER MAIN WRAPPER */}
         <div
           className="relative group px-2 sm:px-4 mb-12"
           onMouseEnter={() => setIsPaused(true)}
@@ -191,8 +187,8 @@ const Projects = ({ darkMode }) => {
             onClick={handlePrev}
             className={`absolute left-0 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border shadow-xl transition-all duration-300 cursor-pointer backdrop-blur-md hover:scale-110 ${
               darkMode
-                ? "bg-gray-900/90 border-gray-700 text-white hover:border-teal-400 hover:text-teal-400 shadow-teal-500/10"
-                : "bg-white/90 border-gray-200 text-gray-800 hover:border-emerald-500 hover:text-emerald-500 shadow-gray-300/50"
+                ? "bg-gray-900/90 border-gray-700 text-white"
+                : "bg-white/90 border-gray-200 text-gray-800"
             }`}
           >
             <FaChevronLeft className="text-sm sm:text-base" />
@@ -203,8 +199,8 @@ const Projects = ({ darkMode }) => {
             onClick={handleNext}
             className={`absolute right-0 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border shadow-xl transition-all duration-300 cursor-pointer backdrop-blur-md hover:scale-110 ${
               darkMode
-                ? "bg-gray-900/90 border-gray-700 text-white hover:border-teal-400 hover:text-teal-400 shadow-teal-500/10"
-                : "bg-white/90 border-gray-200 text-gray-800 hover:border-emerald-500 hover:text-emerald-500 shadow-gray-300/50"
+                ? "bg-gray-900/90 border-gray-700 text-white"
+                : "bg-white/90 border-gray-200 text-gray-800"
             }`}
           >
             <FaChevronRight className="text-sm sm:text-base" />
@@ -226,10 +222,10 @@ const Projects = ({ darkMode }) => {
                   className="flex-shrink-0 px-3 w-full md:w-1/2 lg:w-1/3"
                 >
                   <div
-                    className={`group rounded-2xl border transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col overflow-hidden h-full ${
+                    className={`group rounded-2xl border transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col overflow-hidden h-full ${currentTheme.borderGlow} ${
                       darkMode
-                        ? "bg-gray-900/60 border-gray-800 hover:border-teal-500/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.15)] backdrop-blur-md"
-                        : "bg-white/80 border-gray-100 hover:border-emerald-500/40 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] backdrop-blur-md"
+                        ? "bg-gray-900/60 border-gray-800 backdrop-blur-md"
+                        : "bg-white/80 border-gray-100 backdrop-blur-md shadow-md"
                     }`}
                   >
                     {/* Project Image & Status Badge */}
@@ -250,23 +246,21 @@ const Projects = ({ darkMode }) => {
 
                       {/* Status Badge */}
                       <div className="absolute top-3 right-3 z-10 pointer-events-none">
-                        {project.isLive ? (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 backdrop-blur-md shadow-lg">
-                            <span className="relative flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                            </span>
-                            Live
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-lg border ${currentTheme.tagBg}`}
+                        >
+                          <span className="relative flex h-2 w-2">
+                            <span
+                              className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                              style={{ backgroundColor: currentTheme.primary }}
+                            />
+                            <span
+                              className="relative inline-flex rounded-full h-2 w-2"
+                              style={{ backgroundColor: currentTheme.primary }}
+                            />
                           </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40 backdrop-blur-md shadow-lg">
-                            <span className="relative flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-                            </span>
-                            In Progress
-                          </span>
-                        )}
+                          {project.status}
+                        </span>
                       </div>
                     </div>
 
@@ -295,11 +289,7 @@ const Projects = ({ darkMode }) => {
                           {project.tags.map((tag, idx) => (
                             <span
                               key={idx}
-                              className={`px-2.5 py-1 text-xs rounded-full font-medium border ${
-                                darkMode
-                                  ? "bg-teal-500/10 border-teal-500/20 text-teal-300"
-                                  : "bg-emerald-50 border-emerald-100 text-emerald-700"
-                              }`}
+                              className={`px-2.5 py-1 text-xs rounded-full font-medium border ${currentTheme.tagBg}`}
                             >
                               {tag}
                             </span>
@@ -325,7 +315,7 @@ const Projects = ({ darkMode }) => {
                             href={project.demoUrl}
                             target={project.demoUrl !== "#" ? "_blank" : "_self"}
                             rel="noopener noreferrer"
-                            className="flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:scale-[1.02] transition-all duration-300"
+                            className={`flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl text-white bg-gradient-to-r ${currentTheme.gradientButton} hover:scale-[1.02] transition-all duration-300 shadow-md`}
                           >
                             <FaExternalLinkAlt className="text-xs" />
                             <span>Demo</span>
@@ -346,11 +336,12 @@ const Projects = ({ darkMode }) => {
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                currentIndex === idx
-                  ? "w-8 bg-gradient-to-r from-emerald-400 to-amber-500"
-                  : "w-2.5 bg-gray-600/40"
-              }`}
+              className="h-2.5 rounded-full transition-all duration-300 cursor-pointer"
+              style={{
+                width: currentIndex === idx ? "2rem" : "0.625rem",
+                backgroundColor:
+                  currentIndex === idx ? currentTheme.primary : "#4b5563",
+              }}
             />
           ))}
         </div>
@@ -361,11 +352,7 @@ const Projects = ({ darkMode }) => {
             href="https://github.com/SHAHID0400"
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center font-semibold gap-2.5 px-8 py-3.5 text-sm sm:text-base rounded-full shadow-md transition-all duration-300 hover:scale-105 cursor-pointer ${
-              darkMode
-                ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:shadow-[0_0_25px_rgba(20,184,166,0.3)]"
-                : "bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-white hover:shadow-[0_0_25px_rgba(245,158,11,0.4)]"
-            }`}
+            className={`inline-flex items-center font-semibold gap-2.5 px-8 py-3.5 text-sm sm:text-base rounded-full shadow-md transition-all duration-300 hover:scale-105 cursor-pointer bg-gradient-to-r ${currentTheme.gradientButton} text-white`}
           >
             <FaGithub className="text-lg" />
             <span>View All Projects</span>

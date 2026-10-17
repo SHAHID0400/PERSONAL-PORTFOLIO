@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
-const Contact = ({ darkMode }) => {
+const Contact = () => {
+  const { currentTheme, darkMode } = useTheme();
   const form = useRef();
   const [isSending, setIsSending] = useState(false);
-  const [statusMessage, setStatusMessage] = useState(null); // 'success' | 'error' | null
+  const [statusMessage, setStatusMessage] = useState(null);
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -17,10 +19,10 @@ const Contact = ({ darkMode }) => {
     const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY).then(
-      (result) => {
+      () => {
         setIsSending(false);
         setStatusMessage("success");
-        form.current.reset(); // Clear form fields
+        form.current.reset();
       },
       (error) => {
         setIsSending(false);
@@ -42,7 +44,9 @@ const Contact = ({ darkMode }) => {
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">
             Get In{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500">
+            <span
+              className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradientText}`}
+            >
               Touch
             </span>
           </h2>
@@ -55,7 +59,7 @@ const Contact = ({ darkMode }) => {
         <div
           className={`p-6 sm:p-10 rounded-3xl border backdrop-blur-md transition-all ${
             darkMode
-              ? "bg-gray-900/60 border-gray-800 shadow-[0_0_30px_rgba(20,184,166,0.1)]"
+              ? "bg-gray-900/60 border-gray-800 shadow-xl"
               : "bg-white/80 border-gray-200 shadow-xl"
           }`}
         >
@@ -72,7 +76,7 @@ const Contact = ({ darkMode }) => {
                 placeholder="MD Shahid"
                 className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all ${
                   darkMode
-                    ? "bg-gray-800/80 border-gray-700 text-white focus:ring-teal-500"
+                    ? "bg-gray-800/80 border-gray-700 text-white focus:ring-emerald-500"
                     : "bg-gray-50 border-gray-300 text-gray-900 focus:ring-emerald-500"
                 }`}
               />
@@ -90,7 +94,7 @@ const Contact = ({ darkMode }) => {
                 placeholder="shahid@example.com"
                 className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all ${
                   darkMode
-                    ? "bg-gray-800/80 border-gray-700 text-white focus:ring-teal-500"
+                    ? "bg-gray-800/80 border-gray-700 text-white focus:ring-emerald-500"
                     : "bg-gray-50 border-gray-300 text-gray-900 focus:ring-emerald-500"
                 }`}
               />
@@ -106,7 +110,7 @@ const Contact = ({ darkMode }) => {
                 placeholder="Hi Shahid, I would like to talk about..."
                 className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all resize-none ${
                   darkMode
-                    ? "bg-gray-800/80 border-gray-700 text-white focus:ring-teal-500"
+                    ? "bg-gray-800/80 border-gray-700 text-white focus:ring-emerald-500"
                     : "bg-gray-50 border-gray-300 text-gray-900 focus:ring-emerald-500"
                 }`}
               />
@@ -116,7 +120,7 @@ const Contact = ({ darkMode }) => {
             <button
               type="submit"
               disabled={isSending}
-              className="w-full py-3.5 px-6 rounded-xl font-semibold text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500 hover:shadow-[0_0_25px_rgba(20,184,166,0.4)] hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              className={`w-full py-3.5 px-6 rounded-xl font-semibold text-white bg-gradient-to-r ${currentTheme.gradientButton} hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-lg`}
             >
               {isSending ? (
                 <span>Sending...</span>
@@ -130,7 +134,9 @@ const Contact = ({ darkMode }) => {
 
             {/* Status Feedback Alerts */}
             {statusMessage === "success" && (
-              <div className="flex items-center gap-2 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm">
+              <div
+                className={`flex items-center gap-2 p-4 rounded-xl border text-sm ${currentTheme.tagBg}`}
+              >
                 <CheckCircle className="w-5 h-5 flex-shrink-0" />
                 <span>
                   Thank you! Your message has been sent directly to my inbox.

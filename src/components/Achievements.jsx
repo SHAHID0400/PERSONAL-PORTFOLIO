@@ -6,8 +6,11 @@ import {
   MapPin,
   CheckCircle2,
 } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
-const Achievements = ({ darkMode }) => {
+const Achievements = () => {
+  const { currentTheme, darkMode } = useTheme();
+
   const educationList = [
     {
       id: 1,
@@ -50,19 +53,14 @@ const Achievements = ({ darkMode }) => {
         darkMode ? "text-white" : "text-gray-900"
       }`}
     >
-      {/* Background Glow Effect */}
-      <div
-        className={`absolute top-1/3 right-10 w-[300px] h-[300px] rounded-full blur-3xl pointer-events-none opacity-20 ${
-          darkMode ? "bg-emerald-500/30" : "bg-teal-400/30"
-        }`}
-      />
-
       <div className="container max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
         {/* Section Heading */}
         <div className="text-center mb-16" data-aos="fade-up">
           <h2 className="text-3xl sm:text-4xl font-bold mb-3 tracking-tight">
             Education &{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500">
+            <span
+              className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradientText}`}
+            >
               Qualifications
             </span>
           </h2>
@@ -82,16 +80,18 @@ const Achievements = ({ darkMode }) => {
               key={item.id}
               data-aos="fade-up"
               data-aos-delay={`${index * 150}`}
-              className={`group relative rounded-3xl p-6 sm:p-8 border transition-all duration-300 hover:-translate-y-2 backdrop-blur-md flex flex-col justify-between ${
+              className={`group relative rounded-3xl p-6 sm:p-8 border transition-all duration-300 hover:-translate-y-2 backdrop-blur-md flex flex-col justify-between ${currentTheme.borderGlow} ${
                 darkMode
-                  ? "bg-gray-900/60 border-gray-800 hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]"
-                  : "bg-white/80 border-gray-200/80 hover:border-emerald-500/40 hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)]"
+                  ? "bg-gray-900/60 border-gray-800"
+                  : "bg-white/80 border-gray-200/80 shadow-md"
               }`}
             >
               <div>
                 {/* Header Badge & Icon */}
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-gradient-to-tr from-emerald-500 via-teal-500 to-amber-500 text-white shadow-md transform group-hover:scale-110 transition-transform duration-300">
+                  <div
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center bg-gradient-to-tr ${currentTheme.gradientButton} text-white shadow-md transform group-hover:scale-110 transition-transform duration-300`}
+                  >
                     {item.type === "Degree" ? (
                       <GraduationCap className="w-6 h-6" />
                     ) : (
@@ -100,29 +100,31 @@ const Achievements = ({ darkMode }) => {
                   </div>
 
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold border ${
-                      item.status === "In Progress"
-                        ? "bg-amber-500/10 border-amber-500/30 text-amber-400"
-                        : "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
-                    }`}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold border ${currentTheme.tagBg}`}
                   >
                     {item.status}
                   </span>
                 </div>
 
                 {/* Title & Institution */}
-                <h3 className="text-xl sm:text-2xl font-bold mb-2 group-hover:text-emerald-500 transition-colors duration-300">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2 transition-colors duration-300 group-hover:text-emerald-400">
                   {item.degree}
                 </h3>
 
-                <h4 className="text-base font-semibold text-teal-500 mb-4">
+                <h4
+                  className="text-base font-semibold mb-4"
+                  style={{ color: currentTheme.primary }}
+                >
                   {item.institution}
                 </h4>
 
-                {/* Info Pills (Location & Duration) */}
+                {/* Info Pills */}
                 <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-gray-500 mb-6">
                   <div className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4 text-emerald-500" />
+                    <MapPin
+                      className="w-4 h-4"
+                      style={{ color: currentTheme.primary }}
+                    />
                     <span>{item.location}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -131,7 +133,6 @@ const Achievements = ({ darkMode }) => {
                   </div>
                 </div>
 
-                {/* Description */}
                 <p
                   className={`text-sm leading-relaxed mb-6 ${
                     darkMode ? "text-gray-400" : "text-gray-600"
@@ -152,7 +153,10 @@ const Achievements = ({ darkMode }) => {
                       key={idx}
                       className="flex items-center gap-2 text-xs sm:text-sm"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                      <CheckCircle2
+                        className="w-4 h-4 flex-shrink-0"
+                        style={{ color: currentTheme.primary }}
+                      />
                       <span
                         className={darkMode ? "text-gray-300" : "text-gray-700"}
                       >
@@ -176,33 +180,45 @@ const Achievements = ({ darkMode }) => {
           }`}
         >
           <div>
-            <p className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">
+            <p
+              className={`text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradientText}`}
+            >
               100%
             </p>
             <p
-              className={`text-xs sm:text-sm mt-1 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              className={`text-xs sm:text-sm mt-1 ${
+                darkMode ? "text-gray-400" : "text-gray-600"
+              }`}
             >
               Practical Skill Focus
             </p>
           </div>
           <div className="w-px h-12 bg-gray-800 hidden sm:block" />
           <div>
-            <p className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-amber-500">
+            <p
+              className={`text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradientText}`}
+            >
               DCAP
             </p>
             <p
-              className={`text-xs sm:text-sm mt-1 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              className={`text-xs sm:text-sm mt-1 ${
+                darkMode ? "text-gray-400" : "text-gray-600"
+              }`}
             >
               Certified Specialist
             </p>
           </div>
           <div className="w-px h-12 bg-gray-800 hidden sm:block" />
           <div>
-            <p className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-emerald-500">
+            <p
+              className={`text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradientText}`}
+            >
               BCA
             </p>
             <p
-              className={`text-xs sm:text-sm mt-1 ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              className={`text-xs sm:text-sm mt-1 ${
+                darkMode ? "text-gray-400" : "text-gray-600"
+              }`}
             >
               IGNOU Pursuing
             </p>

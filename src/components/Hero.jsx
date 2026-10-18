@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import Typewriter from "typewriter-effect";
 import instagram from "../assets/insta.jpg";
 import linkden from "../assets/linkden.png";
@@ -6,12 +6,134 @@ import facebook from "../assets/facebook.jpg";
 import github from "../assets/github.png";
 import CV from "../assets/CV.pdf";
 import hero from "../assets/hero1.png";
+import reactLogo from "../assets/react.jpg";
+import nodeLogo from "../assets/nodejs.png";
+import mongoLogo from "../assets/MongoDB.png";
+import tailwindLogo from "../assets/tailwind.png";
 import { DownloadIcon, Mail } from "lucide-react";
 import SplineCube from "./SplineCube";
 import { useTheme } from "../context/ThemeContext";
 
+const techBadges = [
+  { name: "React", icon: reactLogo, position: "left-0 top-10 sm:-left-6 sm:top-16", z: "78px", delay: "0s" },
+  { name: "Node.js", icon: nodeLogo, position: "right-0 top-[26%] sm:-right-5", z: "64px", delay: "0.9s" },
+  { name: "MongoDB", icon: mongoLogo, position: "left-0 bottom-[26%] sm:-left-6", z: "84px", delay: "1.7s" },
+  { name: "Tailwind", icon: tailwindLogo, position: "right-0 bottom-12 sm:-right-4", z: "70px", delay: "2.4s" },
+];
+
 const Hero = () => {
   const { currentTheme, darkMode } = useTheme();
+  const portraitRef = useRef(null);
+  const portraitFrameRef = useRef(0);
+  const reducedMotionRef = useRef(false);
+  const portraitTargetRef = useRef({ rx: 0, ry: 0, mx: 50, my: 50 });
+  const portraitCurrentRef = useRef({ rx: 0, ry: 0, mx: 50, my: 50 });
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => {
+      reducedMotionRef.current = media.matches;
+    };
+
+    updatePreference();
+    media.addEventListener?.("change", updatePreference);
+    return () => media.removeEventListener?.("change", updatePreference);
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (portraitFrameRef.current) {
+        cancelAnimationFrame(portraitFrameRef.current);
+      }
+    },
+    []
+  );
+
+  const applyPortraitTilt = () => {
+    const node = portraitRef.current;
+    if (!node) return;
+
+    const current = portraitCurrentRef.current;
+    node.style.setProperty("--hx", `${current.rx.toFixed(2)}deg`);
+    node.style.setProperty("--hy", `${current.ry.toFixed(2)}deg`);
+    node.style.setProperty("--hmx", `${current.mx.toFixed(2)}%`);
+    node.style.setProperty("--hmy", `${current.my.toFixed(2)}%`);
+  };
+
+  const runPortraitLoop = () => {
+    const target = portraitTargetRef.current;
+    const current = portraitCurrentRef.current;
+    const ease = 0.12;
+
+    current.rx += (target.rx - current.rx) * ease;
+    current.ry += (target.ry - current.ry) * ease;
+    current.mx += (target.mx - current.mx) * ease;
+    current.my += (target.my - current.my) * ease;
+
+    const settled =
+      Math.abs(target.rx - current.rx) < 0.01 &&
+      Math.abs(target.ry - current.ry) < 0.01 &&
+      Math.abs(target.mx - current.mx) < 0.05 &&
+      Math.abs(target.my - current.my) < 0.05;
+
+    if (settled) {
+      current.rx = target.rx;
+      current.ry = target.ry;
+      current.mx = target.mx;
+      current.my = target.my;
+      applyPortraitTilt();
+      portraitFrameRef.current = 0;
+      return;
+    }
+
+    applyPortraitTilt();
+    portraitFrameRef.current = requestAnimationFrame(runPortraitLoop);
+  };
+
+  const startPortraitLoop = () => {
+    if (reducedMotionRef.current) return;
+    if (!portraitFrameRef.current) {
+      portraitFrameRef.current = requestAnimationFrame(runPortraitLoop);
+    }
+  };
+
+  const handlePortraitPointerMove = (event) => {
+    if (reducedMotionRef.current) return;
+
+    const node = portraitRef.current;
+    if (!node) return;
+
+    const rect = node.getBoundingClientRect();
+    const x = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+    const y = Math.min(Math.max((event.clientY - rect.top) / rect.height, 0), 1);
+
+    portraitTargetRef.current = {
+      rx: (0.5 - y) * 9,
+      ry: (x - 0.5) * 13,
+      mx: x * 100,
+      my: y * 100,
+    };
+
+    node.classList.add("is-tilting");
+    startPortraitLoop();
+  };
+
+  const handlePortraitPointerDown = (event) => {
+    const node = portraitRef.current;
+    if (!node) return;
+
+    node.classList.add("has-interacted");
+    handlePortraitPointerMove(event);
+  };
+
+  const resetPortraitTilt = () => {
+    const node = portraitRef.current;
+    if (!node) return;
+
+    portraitTargetRef.current = { rx: 0, ry: 0, mx: 50, my: 50 };
+    node.classList.remove("is-tilting");
+    startPortraitLoop();
+  };
 
   const socialIcons = [
     {
@@ -189,26 +311,96 @@ const Hero = () => {
             data-aos="fade-left"
             data-aos-delay="400"
           >
-            <div className="relative w-full flex justify-center items-center">
+            <div
+              className="hero-portrait-scene relative w-full"
+              style={{
+                "--accent": currentTheme.primary,
+                "--accent-rgb": currentTheme.primaryRgb,
+              }}
+            >
               <div
-                className="absolute inset-0 rounded-3xl blur-2xl opacity-50 animate-pulse transition-all duration-700"
-                style={{
-                  background: `radial-gradient(circle, ${currentTheme.primary} 0%, transparent 70%)`,
-                }}
-              />
-
-              <div
-                className={`relative w-full overflow-hidden rounded-3xl p-1 transition-all duration-500 hover:scale-[1.02] ${
-                  darkMode
-                    ? "bg-gradient-to-b from-gray-800/80 via-gray-900/60 to-gray-800/80 shadow-2xl"
-                    : "bg-gradient-to-b from-white via-gray-100 to-white shadow-xl"
-                }`}
+                ref={portraitRef}
+                onPointerDown={handlePortraitPointerDown}
+                onPointerMove={handlePortraitPointerMove}
+                onPointerUp={resetPortraitTilt}
+                onPointerLeave={resetPortraitTilt}
+                onPointerCancel={resetPortraitTilt}
+                className="hero-portrait-tilt relative w-full"
               >
-                <img
-                  src={hero}
-                  alt="MD SHAHID"
-                  className="w-full h-auto object-cover rounded-[22px] transform transition-transform duration-700 ease-in-out hover:scale-105 hover:-rotate-1"
+                {/* Ambient aura */}
+                <div
+                  aria-hidden="true"
+                  className="hero-portrait-aura"
+                  style={{
+                    background: `radial-gradient(circle, ${currentTheme.primary}66 0%, transparent 68%)`,
+                  }}
                 />
+
+                {/* Layered orbit frames */}
+                <div
+                  aria-hidden="true"
+                  className="hero-portrait-ring hero-portrait-ring--outer"
+                  style={{ borderColor: `${currentTheme.primary}3D` }}
+                >
+                  <span
+                    className="hero-portrait-ring-dot"
+                    style={{ backgroundColor: currentTheme.primary }}
+                  />
+                </div>
+                <div
+                  aria-hidden="true"
+                  className="hero-portrait-ring hero-portrait-ring--inner"
+                  style={{ borderColor: `${currentTheme.primary}26` }}
+                />
+
+                {/* Floating tech badges */}
+                {techBadges.map((badge) => (
+                  <span
+                    key={badge.name}
+                    aria-hidden="true"
+                    className={`hero-float-chip ${badge.position} ${
+                      darkMode
+                        ? "bg-gray-900/75 border-gray-700/70 text-gray-100"
+                        : "bg-white/85 border-gray-200 text-gray-800"
+                    }`}
+                    style={{ "--cz": badge.z, animationDelay: badge.delay }}
+                  >
+                    <img
+                      src={badge.icon}
+                      alt=""
+                      className="h-4 w-4 rounded object-contain sm:h-5 sm:w-5"
+                      loading="lazy"
+                    />
+                    <span className="hidden sm:inline">{badge.name}</span>
+                  </span>
+                ))}
+
+                {/* Portrait card */}
+                <div
+                  className={`hero-portrait-card relative overflow-hidden rounded-[2rem] border p-1.5 ${
+                    darkMode
+                      ? "bg-gray-900/70 shadow-[0_30px_90px_rgba(0,0,0,0.55)]"
+                      : "bg-white/80 shadow-[0_30px_80px_rgba(15,23,42,0.16)]"
+                  }`}
+                  style={{
+                    borderColor: darkMode
+                      ? `${currentTheme.primary}30`
+                      : "rgba(15, 23, 42, 0.08)",
+                  }}
+                >
+                  <img
+                    src={hero}
+                    alt="MD SHAHID"
+                    width={1122}
+                    height={1402}
+                    loading="eager"
+                    fetchPriority="high"
+                    className="hero-portrait-img relative z-10 aspect-[4/5] w-full rounded-[1.65rem] object-cover"
+                  />
+
+                  <div aria-hidden="true" className="hero-portrait-glare" />
+                  <div aria-hidden="true" className="hero-portrait-sheen" />
+                </div>
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
+import TechStack3D from "./components/TechStack3D";
 import Achievements from "./components/Achievements";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
@@ -22,7 +23,7 @@ const PortfolioContent = () => {
       duration: 1000,
       once: true,
       offset: 50,
-      disable: "mobile",
+      disable: false,
     });
   }, []);
 
@@ -56,6 +57,7 @@ const PortfolioContent = () => {
         <Hero />
         <About />
         <Skills />
+        <TechStack3D />
         <Achievements />
         <Projects />
         <Contact />

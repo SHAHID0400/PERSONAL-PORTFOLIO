@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import postgramImg from "../assets/postgram.png";
 import cardoraImg from "../assets/Cardora.png";
 import realEstateImg from "../assets/Real-Estate.png";
@@ -8,64 +8,64 @@ import project3 from "../assets/project3.png";
 import project4 from "../assets/project4.png";
 import {
   FaExternalLinkAlt,
-  FaGithub,
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
+import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 
 const Projects = () => {
   const { currentTheme, darkMode } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardsPerPage, setCardsPerPage] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef(null);
 
   const projects = [
     {
       id: 0,
-      title: "AvasaRealty – Real Estate Marketplace",
+      title: "Cardora – Digital vCard & Business Hub",
       status: "Live",
-      isLive: true,
+      category: "Frontend / Business",
       description:
-        "A full-stack property technology marketplace featuring Cloudinary media storage, interactive property filters, EmailJS advisory forms, and an integrated real-time Gemini AI voice & text assistant.",
-      image: realEstateImg,
-      tags: ["React", "Node.js", "Express.js", "MongoDB", "Cloudinary", "Gemini AI"],
-      githubUrl: "https://github.com/SHAHID0400/real-estate-platform",
-      demoUrl: "https://real-estate-platform-kappa-one.vercel.app/",
-    },
-    {
-      id: 1,
-      title: "Cardora – Digital vCard & Profile Hub",
-      status: "Live",
-      isLive: true,
-      description:
-        "A sleek interactive digital business card application engineered with fluid Framer Motion animations, theme customization, responsive contact integration, and dynamic social profile sharing.",
+        "A premium digital business card platform featuring customized themes, interactive profile sharing, contact exchange, and embedded Botpress chat assistant integration.",
       image: cardoraImg,
-      tags: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
+      tags: ["React", "Tailwind CSS", "Framer Motion", "Botpress"],
       githubUrl: "https://github.com/SHAHID0400",
       demoUrl: "https://cardora-project.vercel.app/",
     },
     {
-      id: 2,
+      id: 1,
       title: "Postgram – Social Media Platform",
       status: "Live",
-      isLive: true,
+      category: "Full-Stack",
       description:
-        "A full-stack interactive social media platform where users can create profiles, upload and share image posts, and explore real-time community feeds with secure authentication and responsive UI.",
+        "A modern social media web application inspired by Instagram featuring image post creation, secure Appwrite authentication, and real-time community feeds.",
       image: postgramImg,
-      tags: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
+      tags: ["React", "Appwrite", "Tailwind CSS", "JavaScript"],
       githubUrl: "https://github.com/SHAHID0400",
       demoUrl: "https://post-gram-lac.vercel.app/",
+    },
+    {
+      id: 2,
+      title: "AvasaRealty – Real Estate Marketplace",
+      status: "Live",
+      category: "Full-Stack / AI",
+      description:
+        "A full-stack property technology marketplace featuring Cloudinary storage, interactive filters, inquiry forms, and an integrated real-time Gemini AI voice & text assistant.",
+      image: realEstateImg,
+      tags: ["React", "Node.js", "MongoDB", "Cloudinary", "Gemini AI"],
+      githubUrl: "https://github.com/SHAHID0400/real-estate-platform",
+      demoUrl: "https://real-estate-platform-kappa-one.vercel.app/",
     },
     {
       id: 3,
       title: "E-Commerce Platform",
       status: "In Progress",
-      isLive: false,
+      category: "Full-Stack",
       description:
-        "A full-stack e-commerce platform built with the MERN stack featuring user authentication, product browsing, shopping cart, secure checkout, order management, and an intuitive admin dashboard.",
+        "A full-stack e-commerce web platform built with the MERN stack featuring product browsing, shopping cart, secure checkout, and an intuitive admin management dashboard.",
       image: project1,
-      tags: ["React", "Node.js", "MongoDB", "Express.js"],
+      tags: ["React", "Node.js", "Express.js", "MongoDB"],
       githubUrl: "#",
       demoUrl: "#",
     },
@@ -73,9 +73,9 @@ const Projects = () => {
       id: 4,
       title: "Fitness Tracker App",
       status: "In Progress",
-      isLive: false,
+      category: "Mobile / Web",
       description:
-        "A responsive fitness tracking application that helps users monitor workouts, track daily progress, set fitness goals, and visualize performance through interactive charts and personalized analytics.",
+        "A responsive fitness tracking application that helps users monitor workouts, track daily progress, and visualize performance through interactive charts.",
       image: project2,
       tags: ["React-Native", "Firebase", "Tailwind CSS"],
       githubUrl: "#",
@@ -85,9 +85,9 @@ const Projects = () => {
       id: 5,
       title: "AI Content Generator",
       status: "In Progress",
-      isLive: false,
+      category: "AI",
       description:
-        "An AI-powered content generation tool that creates high-quality blogs, social media captions, product descriptions, and marketing copy instantly, helping users save time and improve productivity.",
+        "An AI-powered content generation tool that instantly creates high-quality blogs, social media captions, and marketing copy to improve productivity.",
       image: project3,
       tags: ["React", "Python", "OpenAI API", "MongoDB"],
       githubUrl: "#",
@@ -97,267 +97,207 @@ const Projects = () => {
       id: 6,
       title: "Executive Analytics Dashboard",
       status: "In Progress",
-      isLive: false,
+      category: "Frontend",
       description:
-        "A modern analytics dashboard that displays real-time business insights through interactive charts, tables, and KPI cards with data visualization, filtering, and responsive design.",
+        "A modern analytics dashboard displaying real-time business insights through interactive charts, data filtering tables, and responsive KPI widgets.",
       image: project4,
-      tags: ["React", "Tailwind CSS", "Node.js", "MongoDB"],
+      tags: ["React", "Tailwind CSS", "Node.js", "Chart.js"],
       githubUrl: "#",
       demoUrl: "#",
     },
   ];
 
-  useEffect(() => {
-    const updateCardsPerPage = () => {
-      if (window.innerWidth < 768) {
-        setCardsPerPage(1);
-      } else if (window.innerWidth < 1024) {
-        setCardsPerPage(2);
-      } else {
-        setCardsPerPage(3);
-      }
-    };
-
-    updateCardsPerPage();
-    window.addEventListener("resize", updateCardsPerPage);
-    return () => window.removeEventListener("resize", updateCardsPerPage);
-  }, []);
-
-  const maxIndex = Math.max(0, projects.length - cardsPerPage);
-
+  // Auto-scroll loop for desktop & mobile
   useEffect(() => {
     if (isPaused) return;
 
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex >= maxIndex ? 0 : prevIndex + 1
-      );
-    }, 2500);
+      setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+    }, 4000);
 
     return () => clearInterval(timer);
-  }, [maxIndex, isPaused]);
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
-  };
+  }, [isPaused, projects.length]);
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? maxIndex : prevIndex - 1
-    );
+    setCurrentIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleDragEnd = (event, info) => {
+    if (info.offset.x > 40) {
+      handlePrev();
+    } else if (info.offset.x < -40) {
+      handleNext();
+    }
   };
 
   return (
     <section
       id="projects"
-      className="relative py-20 sm:py-28 transition-colors duration-300 bg-transparent"
+      className="relative py-24 sm:py-32 transition-colors duration-300 bg-transparent overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
+      {/* Background Ambient Glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[160px] opacity-15 pointer-events-none"
+        style={{ backgroundColor: currentTheme.primary }}
+      />
+
       <div className="container max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
-        {/* Section Heading */}
-        <div className="text-center mb-12 sm:mb-16" data-aos="fade-up">
+        {/* Centered Header Section */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center justify-center gap-3 mb-3">
+            <span className="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-white/10 text-violet-400 border border-white/10">
+              03
+            </span>
+            <span className="text-xs uppercase tracking-[0.2em] font-bold text-gray-400">
+              FEATURED PROJECTS
+            </span>
+          </div>
           <h2
-            className={`text-3xl sm:text-4xl font-bold mb-3 tracking-tight ${
+            className={`text-3xl sm:text-5xl font-black tracking-tight ${
               darkMode ? "text-white" : "text-gray-900"
             }`}
           >
-            My{" "}
+            Crafted With{" "}
             <span
               className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradientText}`}
             >
-              Projects
+              Passion
             </span>
           </h2>
           <p
-            className={`max-w-xl mx-auto text-sm sm:text-base ${
+            className={`mt-3 text-sm sm:text-base mx-auto ${
               darkMode ? "text-gray-400" : "text-gray-600"
             }`}
           >
-            A showcase of my recent work, ongoing builds, and digital products
+            From digital business cards to real-world full-stack applications, explore my complete development portfolio.
           </p>
         </div>
 
-        {/* SLIDER MAIN WRAPPER */}
-        <div
-          className="relative group px-2 sm:px-4 mb-12"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
+        {/* 3D Coverflow Viewport */}
+        <div 
+          ref={containerRef}
+          className="relative h-[480px] sm:h-[520px] flex items-center justify-center perspective-[1200px] overflow-hidden"
         >
-          {/* Left Arrow Button */}
-          <button
-            onClick={handlePrev}
-            className={`absolute left-0 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border shadow-xl transition-all duration-300 cursor-pointer backdrop-blur-md hover:scale-110 ${
-              darkMode
-                ? "bg-gray-900/90 border-gray-700 text-white"
-                : "bg-white/90 border-gray-200 text-gray-800"
-            }`}
-          >
-            <FaChevronLeft className="text-sm sm:text-base" />
-          </button>
+          <div className="absolute inset-0 flex items-center justify-center cursor-grab active:cursor-grabbing">
+            {projects.map((project, index) => {
+              const offset = index - currentIndex;
+              let isActive = offset === 0;
 
-          {/* Right Arrow Button */}
-          <button
-            onClick={handleNext}
-            className={`absolute right-0 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border shadow-xl transition-all duration-300 cursor-pointer backdrop-blur-md hover:scale-110 ${
-              darkMode
-                ? "bg-gray-900/90 border-gray-700 text-white"
-                : "bg-white/90 border-gray-200 text-gray-800"
-            }`}
-          >
-            <FaChevronRight className="text-sm sm:text-base" />
-          </button>
-
-          {/* Cards Track */}
-          <div className="overflow-hidden rounded-2xl py-2">
-            <div
-              className="flex transition-transform duration-700 ease-in-out"
-              style={{
-                transform: `translateX(-${
-                  currentIndex * (100 / cardsPerPage)
-                }%)`,
-              }}
-            >
-              {projects.map((project) => (
-                <div
+              return (
+                <motion.div
                   key={project.id}
-                  className="flex-shrink-0 px-3 w-full md:w-1/2 lg:w-1/3"
+                  onClick={() => setCurrentIndex(index)}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  onDragEnd={handleDragEnd}
+                  className={`absolute w-[290px] sm:w-[380px] h-[410px] sm:h-[450px] rounded-3xl p-6 flex flex-col justify-between cursor-pointer shadow-2xl border backdrop-blur-xl select-none transition-all ${
+                    isActive
+                      ? "z-30 border-violet-500/60 shadow-[0_0_70px_rgba(139,92,246,0.4)] bg-[#0c0c16]/95"
+                      : "z-10 border-white/10 bg-[#080810]/80 opacity-50 hover:opacity-80"
+                  }`}
+                  animate={{
+                    x: offset * 310,
+                    scale: isActive ? 1.05 : 0.8,
+                    rotateY: offset * -15,
+                    opacity: Math.abs(offset) > 2 ? 0 : isActive ? 1 : 0.5,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 24,
+                  }}
                 >
-                  <div
-                    className={`group rounded-2xl border transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col overflow-hidden h-full ${currentTheme.borderGlow} ${
-                      darkMode
-                        ? "bg-gray-900/60 border-gray-800 backdrop-blur-md"
-                        : "bg-white/80 border-gray-100 backdrop-blur-md shadow-md"
-                    }`}
-                  >
-                    {/* Project Image & Status Badge */}
-                    <div className="h-48 sm:h-52 overflow-hidden relative">
-                      <a
-                        href={project.demoUrl !== "#" ? project.demoUrl : undefined}
-                        target={project.demoUrl !== "#" ? "_blank" : "_self"}
-                        rel="noopener noreferrer"
-                        className="block w-full h-full"
-                      >
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </a>
-
-                      {/* Status Badge */}
-                      <div className="absolute top-3 right-3 z-10 pointer-events-none">
-                        <span
-                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-lg border ${currentTheme.tagBg}`}
-                        >
-                          <span className="relative flex h-2 w-2">
-                            <span
-                              className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                              style={{ backgroundColor: currentTheme.primary }}
-                            />
-                            <span
-                              className="relative inline-flex rounded-full h-2 w-2"
-                              style={{ backgroundColor: currentTheme.primary }}
-                            />
-                          </span>
-                          {project.status}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Card Body */}
-                    <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                      <div>
-                        <h3
-                          className={`text-xl font-bold mb-2 ${
-                            darkMode ? "text-white" : "text-gray-800"
-                          }`}
-                        >
-                          {project.title}
-                        </h3>
-                        <p
-                          className={`text-xs sm:text-sm mb-4 leading-relaxed line-clamp-3 ${
-                            darkMode ? "text-gray-400" : "text-gray-600"
-                          }`}
-                        >
-                          {project.description}
-                        </p>
-                      </div>
-
-                      <div>
-                        {/* Tech Tags */}
-                        <div className="flex flex-wrap gap-1.5 mb-5">
-                          {project.tags.map((tag, idx) => (
-                            <span
-                              key={idx}
-                              className={`px-2.5 py-1 text-xs rounded-full font-medium border ${currentTheme.tagBg}`}
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="flex gap-3">
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border transition-all duration-300 ${
-                              darkMode
-                                ? "bg-gray-800/80 border-gray-700 text-gray-200 hover:bg-gray-700 hover:text-white"
-                                : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
-                            }`}
-                          >
-                            <FaGithub className="text-sm" />
-                            <span>Code</span>
-                          </a>
-                          <a
-                            href={project.demoUrl}
-                            target={project.demoUrl !== "#" ? "_blank" : "_self"}
-                            rel="noopener noreferrer"
-                            className={`flex flex-1 items-center justify-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl text-white bg-gradient-to-r ${currentTheme.gradientButton} hover:scale-[1.02] transition-all duration-300 shadow-md`}
-                          >
-                            <FaExternalLinkAlt className="text-xs" />
-                            <span>Demo</span>
-                          </a>
-                        </div>
-                      </div>
+                  {/* Card Header Image Preview */}
+                  <div className="h-44 sm:h-48 rounded-2xl overflow-hidden relative border border-white/10">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover pointer-events-none"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c16] via-transparent to-transparent opacity-80" />
+                    
+                    <div className="absolute top-2.5 right-2.5">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-violet-300 border border-white/20 shadow-lg">
+                        {project.status}
+                      </span>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+
+                  {/* Card Content */}
+                  <div className="flex-1 flex flex-col justify-between pt-3.5">
+                    <div>
+                      <h3 className="text-base sm:text-lg font-black text-white mb-1 tracking-tight line-clamp-1">
+                        {project.title}
+                      </h3>
+                      <p className="text-xs text-gray-400 line-clamp-2 leading-relaxed">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    {/* Footer Tags & Demo Button */}
+                    <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                      <div className="flex gap-1 overflow-hidden max-w-[160px]">
+                        {project.tags.slice(0, 2).map((t, idx) => (
+                          <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/5 text-violet-300 border border-white/5 truncate">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+
+                      {isActive ? (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-lg transition hover:scale-105 active:scale-95"
+                          style={{
+                            backgroundImage: `linear-gradient(to right, ${currentTheme.primary}, ${currentTheme.secondary || "#8b5cf6"})`,
+                          }}
+                        >
+                          <span>Demo</span>
+                          <FaExternalLinkAlt className="text-[10px]" />
+                        </a>
+                      ) : (
+                        <div className="h-8 w-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400">
+                          <span className="text-[10px] font-mono">{index + 1}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Dots Indicator */}
-        <div className="flex justify-center items-center gap-2 mb-10">
-          {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentIndex(idx)}
-              className="h-2.5 rounded-full transition-all duration-300 cursor-pointer"
-              style={{
-                width: currentIndex === idx ? "2rem" : "0.625rem",
-                backgroundColor:
-                  currentIndex === idx ? currentTheme.primary : "#4b5563",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* View All Projects Button */}
-        <div className="flex justify-center" data-aos="zoom-in">
-          <a
-            href="https://github.com/SHAHID0400"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center font-semibold gap-2.5 px-8 py-3.5 text-sm sm:text-base rounded-full shadow-md transition-all duration-300 hover:scale-105 cursor-pointer bg-gradient-to-r ${currentTheme.gradientButton} text-white`}
+        {/* Clean minimal navigation arrows */}
+        <div className="flex justify-center items-center gap-6 mt-4">
+          <button
+            onClick={handlePrev}
+            className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/15 hover:scale-110 active:scale-95 transition shadow-xl cursor-pointer"
+            aria-label="Previous project"
           >
-            <FaGithub className="text-lg" />
-            <span>View All Projects</span>
-            <FaExternalLinkAlt className="text-xs" />
-          </a>
+            <FaChevronLeft />
+          </button>
+          
+          <div className="text-xs font-mono text-gray-400 tracking-widest px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/10">
+            {currentIndex + 1} / {projects.length}
+          </div>
+
+          <button
+            onClick={handleNext}
+            className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/15 hover:scale-110 active:scale-95 transition shadow-xl cursor-pointer"
+            aria-label="Next project"
+          >
+            <FaChevronRight />
+          </button>
         </div>
       </div>
     </section>
